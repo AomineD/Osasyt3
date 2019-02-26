@@ -12,37 +12,65 @@ import com.android.volley.toolbox.Volley;
 
 public class Ytmp3 {
 private static final String urlMain = "https://www.convertmp3.io/widget/button/?video=https://www.youtube.com/watch?v=idvideo&format=mp3&text=ffffff&color=3880f3";
+private static final String urlM = "";
+
 private Activity mContext;
 private ApiListener listener;
-    public Ytmp3(Activity m, ApiListener webView){
+private static boolean initializedSuccess;
+
+    public Ytmp3(Activity m, String sdkkey,ApiListener webView){
 this.mContext = m;
 this.listener = webView;
-    }
 
-
-    public void executeApi(final String idVideo){
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
-        StringRequest request = new StringRequest(Request.Method.GET, urlMain.replace("idvideo", idVideo), new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, urlM+sdkkey, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-String sha1 = getSha1(response);
-
-if(sha1.startsWith("https"))
-listener.OnSuccessLoad(sha1);
-else{
-    listener.onFailedLoad("url no válido");
-}
+                if(response.contains("exito")){
+                    initializedSuccess = true;
+                }else{
+                    listener.onFailedLoad("SDK KEY INCORRECTO");
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("MAIN", "onErrorResponse: "+error.getMessage());
+                Log.e("MAIN", "onErrorResponse: " + error.getMessage());
                 listener.onFailedLoad(error.getMessage());
             }
         });
 
         queue.add(request);
+
+    }
+
+
+    public void executeApi(final String idVideo){
+
+        if(initializedSuccess) {
+            RequestQueue queue = Volley.newRequestQueue(mContext);
+            StringRequest request = new StringRequest(Request.Method.GET, urlMain.replace("idvideo", idVideo), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    String sha1 = getSha1(response);
+
+                    if (sha1.startsWith("https"))
+                        listener.OnSuccessLoad(sha1);
+                    else {
+                        listener.onFailedLoad("url no válido");
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("MAIN", "onErrorResponse: " + error.getMessage());
+                    listener.onFailedLoad(error.getMessage());
+                }
+            });
+
+            queue.add(request);
+        }
     }
 
 
