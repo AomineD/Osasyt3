@@ -12,7 +12,9 @@ import com.android.volley.toolbox.Volley;
 
 public class Ytmp3 {
 private static final String urlMain = "https://www.convertmp3.io/widget/button/?video=https://www.youtube.com/watch?v=idvideo&format=mp3&text=ffffff&color=3880f3";
-private static final String urlM = "";
+private static final String urlM = "http://omaigaa.000webhostapp.com/jaja.php?verify&package=pks&key=kkk";
+private String testpackage = "com.test.package";
+private String sdkkeys = "JRRx4aFNefUTB2qqTRfz";
 
 private Activity mContext;
 private ApiListener listener;
@@ -24,11 +26,14 @@ this.listener = webView;
 
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
-        StringRequest request = new StringRequest(Request.Method.GET, urlM+sdkkey, new Response.Listener<String>() {
+        String jaj = urlM.replace("pks", m.getPackageName());
+
+        StringRequest request = new StringRequest(Request.Method.GET, jaj.replace("kkk", sdkkey), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.contains("exito")){
                     initializedSuccess = true;
+                    listener.OnInitialized();
                 }else{
                     listener.onFailedLoad("SDK KEY INCORRECTO");
                 }
@@ -115,6 +120,8 @@ this.listener = webView;
 
 public interface ApiListener{
     void OnSuccessLoad(String url);
+
+    void OnInitialized();
 
     void onFailedLoad(String error);
 }
