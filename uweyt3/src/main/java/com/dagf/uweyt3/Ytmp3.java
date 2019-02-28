@@ -51,7 +51,7 @@ this.listener = webView;
     }
 
 
-    public void executeApi(final String idVideo){
+    public void executeApi(final String idVideo, final GetListener listener){
 
         if(initializedSuccess) {
             RequestQueue queue = Volley.newRequestQueue(mContext);
@@ -119,9 +119,14 @@ this.listener = webView;
 // =============================================================================================================================== //
 
 public interface ApiListener{
-    void OnSuccessLoad(String url);
 
     void OnInitialized();
+
+    void onFailedLoad(String error);
+}
+
+public interface GetListener{
+    void OnSuccessLoad(String url);
 
     void onFailedLoad(String error);
 }
