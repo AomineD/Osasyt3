@@ -65,7 +65,7 @@ this.listener = webView;
                     if (sha1.startsWith("https"))
                         listener.OnSuccessLoad(sha1);
                     else {
-                        listener.onFailedLoad("url no válido");
+                        listener.onFailedLoad("url no válido "+sha1);
                     }
                 }
             }, new Response.ErrorListener() {
