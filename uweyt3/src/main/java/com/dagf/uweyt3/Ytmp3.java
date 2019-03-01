@@ -88,7 +88,7 @@ this.listener = webView;
 
         //Log.e("MAIN", "getSha1: "+r );
         String[] v = r.split("href=\"");
-if(v.length > 0) {
+if(v.length > 1) {
     String[] v2 = v[2].split("\"");
 
     //    Log.e("MAIN", "getSha1: "+v2[0]);
