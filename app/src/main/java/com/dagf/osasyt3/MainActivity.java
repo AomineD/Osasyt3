@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      ytmp3 = new Ytmp3(this, "", new Ytmp3.ApiListener() {
+      /*ytmp3 = new Ytmp3(this, "", new Ytmp3.ApiListener() {
             @Override
             public void OnSuccessLoad(String url) {
                 Toast.makeText(MainActivity.this, "SI ALFIN", Toast.LENGTH_SHORT).show();
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailedLoad(String error) {
                 Toast.makeText(MainActivity.this, "Error: "+error, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 
     }

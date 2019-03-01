@@ -10,6 +10,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.ArrayList;
+
 public class Ytmp3 {
 private static final String urlMain = "https://www.convertmp3.io/widget/button/?video=https://www.youtube.com/watch?v=idvideo&format=mp3&text=ffffff&color=3880f3";
 private static final String urlM = "http://omaigaa.000webhostapp.com/jaja.php?verify&package=pks&key=kkk";
@@ -86,12 +88,15 @@ this.listener = webView;
 
         //Log.e("MAIN", "getSha1: "+r );
         String[] v = r.split("href=\"");
-
-        String[] v2 = v[2].split("\"");
+if(v.length > 0) {
+    String[] v2 = v[2].split("\"");
 
     //    Log.e("MAIN", "getSha1: "+v2[0]);
 
-        nothing = "https://www.convertmp3.io"+v2[0];
+    nothing = "https://www.convertmp3.io" + v2[0];
+}else{
+    nothing = "url no es valido "+r;
+}
         return nothing;
     }
 
