@@ -95,7 +95,14 @@ if(v.length > 2) {
 
     nothing = "https://www.convertmp3.io" + v2[0];
 }else{
-    nothing = "url no es valido "+r;
+
+    //Log.e(TAG, "getSha1: ", );
+    String[] v2 = v[1].split("\"");
+
+    //    Log.e("MAIN", "getSha1: "+v2[0]);
+
+    nothing = "https://www.convertmp3.io" + v2[0];
+    //nothing = "url no es valido "+r;
 }
         return nothing;
     }
