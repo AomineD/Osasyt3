@@ -12,6 +12,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.dagf.uweyt3.VmeoGetter;
 import com.dagf.uweyt3.Ytmp3;
 import com.dagf.uweyt3.Ytmp4;
 
@@ -27,22 +28,22 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayList<String> urlYoutube = new ArrayList<>();
 
-        urlYoutube.add("https://www.youtube.com/watch?v=KtzJgiHW7Bc");
-        urlYoutube.add("https://www.youtube.com/watch?v=6bMmhKz6KXg");
-        urlYoutube.add("https://www.youtube.com/watch?v=VlM8BXylDoQ");
+        urlYoutube.add("82747747");
+        urlYoutube.add("326897828");
+        urlYoutube.add("237046615");
 
 
-        Ytmp4.getAllUrls(this, urlYoutube, Ytmp4.Calidad.media, new Ytmp4.onGetAllUrl() {
+        VmeoGetter.getAllVimeoUrl(this, urlYoutube, VmeoGetter.QualityVimeo.alta, new VmeoGetter.allLoadListener() {
             @Override
-            public void onLoadAll(ArrayList<String> urrs) {
-                for(int i=0; i < urrs.size(); i++){
-                    Log.e("MAIN", "onLoadAll: "+urrs.get(i) );
+            public void onLoadSuccess(ArrayList<VmeoGetter.VimeoObject> vimeoVids) {
+                for(int i=0; i < vimeoVids.size(); i++){
+                    Log.e("MAIN", "onLoadSuccess: "+vimeoVids.get(i).thumb_url+ " = "+vimeoVids.get(i).url);
                 }
             }
 
             @Override
-            public void onFails(String erno) {
-                Log.e("MAIN", "onFails:error "+erno );
+            public void onFailed(String erno) {
+                Log.e("MAIN", "onFailed: "+erno );
             }
         });
 
