@@ -13,6 +13,9 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.dagf.uweyt3.Ytmp3;
+import com.dagf.uweyt3.Ytmp4;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,27 +25,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      ytmp3 = new Ytmp3(this, "8HduqvJn6In4DgmtigLl", new Ytmp3.ApiListener() {
+        final ArrayList<String> urlYoutube = new ArrayList<>();
+
+        urlYoutube.add("https://www.youtube.com/watch?v=KtzJgiHW7Bc");
+        urlYoutube.add("https://www.youtube.com/watch?v=6bMmhKz6KXg");
+        urlYoutube.add("https://www.youtube.com/watch?v=VlM8BXylDoQ");
 
 
+        Ytmp4.getAllUrls(this, urlYoutube, Ytmp4.Calidad.media, new Ytmp4.onGetAllUrl() {
             @Override
-            public void OnInitialized() {
-                ytmp3.executeApi("Nce39E8VXaw", new Ytmp3.GetListener() {
-                    @Override
-                    public void OnSuccessLoad(String url) {
-                        Log.e("MAIN", "OnSuccessLoad: "+url);
-                    }
-
-                    @Override
-                    public void onFailedLoad(String error) {
-
-                    }
-                });
+            public void onLoadAll(ArrayList<String> urrs) {
+                for(int i=0; i < urrs.size(); i++){
+                    Log.e("MAIN", "onLoadAll: "+urrs.get(i) );
+                }
             }
 
             @Override
-            public void onFailedLoad(String error) {
-                Toast.makeText(MainActivity.this, "Error: "+error, Toast.LENGTH_SHORT).show();
+            public void onFails(String erno) {
+                Log.e("MAIN", "onFails:error "+erno );
             }
         });
 
