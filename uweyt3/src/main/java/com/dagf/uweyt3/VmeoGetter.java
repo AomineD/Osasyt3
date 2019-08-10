@@ -45,18 +45,18 @@ public class VmeoGetter {
         public String thumb_url;
     }
 
-    public static void getAllVimeoUrl(Context c, final ArrayList<String> ids, final QualityVimeo calidad, final allLoadListener allLoadListener){
+    public static void getAllVimeoUrl(Context c, final ArrayList<String> urls, final QualityVimeo calidad, final allLoadListener allLoadListener){
         final ArrayList<VimeoObject> rrarai = new ArrayList<>();
-        for(int i=0; i < ids.size(); i++){
+        for(int i=0; i < urls.size(); i++){
             final int finalI = i;
-            getVimeoUrl(c, ids.get(i), calidad, new LoadListener() {
+            getVimeoUrl(c, urls.get(i), calidad, new LoadListener() {
                 @Override
                 public void onLoadSuccess(String url, String thumb) {
                     VimeoObject ob = new VimeoObject();
                     ob.url = url;
                     ob.thumb_url = thumb;
                     rrarai.add(ob);
-                    if(ids.size() - 1 == finalI){
+                    if(urls.size() - 1 == finalI){
                         allLoadListener.onLoadSuccess(rrarai);
                     }
                 }
@@ -71,7 +71,10 @@ allLoadListener.onFailed(erno);
         }
     }
 
-    public static void getVimeoUrl(Context c, String id, final QualityVimeo calidad, final LoadListener listener){
+    public static void getVimeoUrl(Context c, String url, final QualityVimeo calidad, final LoadListener listener){
+
+
+        String id = url.replace("https://vimeo.com/", "");
 
         RequestQueue queue = Volley.newRequestQueue(c);
 
