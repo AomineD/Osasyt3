@@ -1,9 +1,22 @@
 package com.dagf.uweyt3;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -103,4 +116,86 @@ listener.onFail(e.getMessage());
 
     }
 
+
+
+    public static void playLiveVideo(final AppCompatActivity activity, String videourl, int id_player){
+
+        videourl = videourl.replace("https://youtu.be/", "");
+
+        final YouTubePlayerView youtubePlayerView = activity.findViewById(id_player);
+        activity.getLifecycle().addObserver(youtubePlayerView);
+        youtubePlayerView.getPlayerUiController().enableLiveVideoUi(true);
+        //  youtubePlayerView.getpla
+
+        youtubePlayerView.getPlayerUiController().showDuration(false);
+        youtubePlayerView.getPlayerUiController().showYouTubeButton(false);
+        youtubePlayerView.setVisibility(View.GONE);
+        youtubePlayerView.getPlayerUiController().showVideoTitle(false);
+        youtubePlayerView.setEnableAutomaticInitialization(false);
+       // youtubePlayerView.getPlayerUiController().showUi(false);
+        final String finalVideourl = videourl;
+        youtubePlayerView.initialize(new YouTubePlayerListener() {
+            @Override
+            public void onVideoLoadedFraction(@NotNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onVideoId(@NotNull YouTubePlayer youTubePlayer, @NotNull String s) {
+
+            }
+
+            @Override
+            public void onVideoDuration(@NotNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onStateChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlayerState playerState) {
+if(playerState == PlayerConstants.PlayerState.UNSTARTED){
+   // Log.e("MAIN", "NO EMPEZADO");
+}else if(playerState == PlayerConstants.PlayerState.PLAYING && playingFirst){
+    youtubePlayerView.setVisibility(View.VISIBLE);
+    youTubePlayer.play();
+    playingFirst = false;
+}
+            }
+
+            @Override
+            public void onReady(@NotNull final YouTubePlayer youTubePlayer) {
+                String videoId = finalVideourl;
+                youTubePlayer.loadVideo(videoId, 0);
+                playingFirst = true;
+            }
+
+            @Override
+            public void onPlaybackRateChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlaybackRate playbackRate) {
+
+            }
+
+            @Override
+            public void onPlaybackQualityChange(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlaybackQuality playbackQuality) {
+
+            }
+
+            @Override
+            public void onError(@NotNull YouTubePlayer youTubePlayer, @NotNull PlayerConstants.PlayerError playerError) {
+
+            }
+
+            @Override
+            public void onCurrentSecond(@NotNull YouTubePlayer youTubePlayer, float v) {
+
+            }
+
+            @Override
+            public void onApiChange(@NotNull YouTubePlayer youTubePlayer) {
+
+            }
+
+        }, true);
+    }
+
+
+    private static boolean playingFirst = true;
 }

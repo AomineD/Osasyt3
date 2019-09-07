@@ -1,18 +1,16 @@
 package com.dagf.osasyt3;
 
-import android.Manifest;
-import android.content.Context;
-import android.os.StrictMode;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.webkit.WebView;
-import android.widget.Toast;
+import android.media.MediaPlayer;
+import android.net.Uri;
 
-import com.dagf.uweyt3.VmeoGetter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.MediaController;
+import android.widget.Toast;
+import android.widget.VideoView;
+
 import com.dagf.uweyt3.Ytmp3;
 import com.dagf.uweyt3.Ytmp4;
 
@@ -26,26 +24,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ArrayList<String> urlYoutube = new ArrayList<>();
-
-        urlYoutube.add("82747747");
-        urlYoutube.add("326897828");
-        urlYoutube.add("237046615");
 
 
-        VmeoGetter.getAllVimeoUrl(this, urlYoutube, VmeoGetter.QualityVimeo.alta, new VmeoGetter.allLoadListener() {
-            @Override
-            public void onLoadSuccess(ArrayList<VmeoGetter.VimeoObject> vimeoVids) {
-                for(int i=0; i < vimeoVids.size(); i++){
-                    Log.e("MAIN", "onLoadSuccess: "+vimeoVids.get(i).thumb_url+ " = "+vimeoVids.get(i).url);
-                }
-            }
+        Ytmp4.playLiveVideo(this, "https://youtu.be/05K00cYTFO8", R.id.youtube_player);
 
-            @Override
-            public void onFailed(String erno) {
-                Log.e("MAIN", "onFailed: "+erno );
-            }
-        });
+
+     /*   final ArrayList<String> urlYoutube = new ArrayList<>();
+
+        urlYoutube.add("https://www.youtube.com/watch?v=rKWgmeqOi8k");
+      //  urlYoutube.add("326897828");
+       // urlYoutube.add("237046615");
+
+final VideoView videoView = findViewById(R.id.videow);
+   Ytmp4.getUrlOf(this, "https://www.youtube.com/watch?v=rKWgmeqOi8k", Ytmp4.Calidad.media, new Ytmp4.onGetUrl() {
+       @Override
+       public void onCompleteGot(String url) {
+
+           try {
+               //String link="http://s1133.photobucket.com/albums/m590/Anniebabycupcakez/?action=view&amp; current=1376992942447_242.mp4";
+               VideoView videoView = findViewById(R.id.videow);
+               MediaController mediaController = new MediaController(MainActivity.this);
+               mediaController.setAnchorView(videoView);
+               Uri video = Uri.parse(url);
+               videoView.setMediaController(mediaController);
+               videoView.setVideoURI(video);
+               videoView.start();
+           } catch (Exception e) {
+               // TODO: handle exception
+               Toast.makeText(MainActivity.this, "Error connecting", Toast.LENGTH_SHORT).show();
+           }
+       }
+
+       @Override
+       public void onFail(String cause) {
+           Log.e("MAIN", "onFail: "+cause );
+       }
+   });*/
 
 
     }
