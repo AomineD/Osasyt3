@@ -5,20 +5,26 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.dagf.uweyt3.PornBi;
 import com.dagf.uweyt3.Ytmp3;
 import com.dagf.uweyt3.Ytmp4;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private Ytmp3 ytmp3;
+    String rr = "nada";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +32,35 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Ytmp4.playLiveVideo(this, "https://youtu.be/05K00cYTFO8", R.id.youtube_player);
+     //   Ytmp4.playLiveVideo(this, "https://youtu.be/05K00cYTFO8", R.id.youtube_player);
 
+
+
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    PornBi b = new PornBi();
+
+                    ArrayList<String> sr = new ArrayList<>(b.getCategories().values());
+
+
+                    Log.e("MAIN", "onCreate: "+sr.size() + " count "+b);
+
+              List<String> jaja = b.getViewUrls(sr.get(0));
+
+
+                    Log.e("MAIN", "run: "+jaja.size());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("MAIN", "PROBLEM "+e.getMessage() );
+
+                }
+            }
+        });
 
      /*   final ArrayList<String> urlYoutube = new ArrayList<>();
 

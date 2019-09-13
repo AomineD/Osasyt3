@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -118,11 +119,14 @@ listener.onFail(e.getMessage());
 
 
 
-    public static void playLiveVideo(final AppCompatActivity activity, String videourl, int id_player){
+    public static void playLiveVideo(final AppCompatActivity activity, String videourl, LinearLayout id_player){
 
         videourl = videourl.replace("https://youtu.be/", "");
 
-        final YouTubePlayerView youtubePlayerView = activity.findViewById(id_player);
+        final YouTubePlayerView youtubePlayerView = new YouTubePlayerView(activity);
+
+        id_player.addView(youtubePlayerView);
+
         activity.getLifecycle().addObserver(youtubePlayerView);
         youtubePlayerView.getPlayerUiController().enableLiveVideoUi(true);
         //  youtubePlayerView.getpla
