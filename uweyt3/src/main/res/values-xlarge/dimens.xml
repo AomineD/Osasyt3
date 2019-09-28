@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_to_fb">22dp</dimen>
+    <dimen name="margin_rec_chat">75dp</dimen>
+</resources>

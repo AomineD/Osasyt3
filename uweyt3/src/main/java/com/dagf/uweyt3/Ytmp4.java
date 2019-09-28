@@ -11,6 +11,12 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
@@ -19,7 +25,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import at.huber.youtubeExtractor.VideoMeta;
 import at.huber.youtubeExtractor.YouTubeExtractor;
@@ -118,14 +127,17 @@ listener.onFail(e.getMessage());
     }
 
 
+    public interface onLoadLiveCorrect{
+        void onLoad();
+    }
 
-    public static void playLiveVideo(final AppCompatActivity activity, String videourl, LinearLayout id_player){
+    public static void playLiveVideo(final AppCompatActivity activity, String videourl, YouTubePlayerView youtubePlayerView, onLoadLiveCorrect liveCorrect){
 
-        videourl = videourl.replace("https://youtu.be/", "");
+        videourl = videourl.replace("https://www.youtube.com/watch?v=", "");
 
-        final YouTubePlayerView youtubePlayerView = new YouTubePlayerView(activity);
+       /* final YouTubePlayerView youtubePlayerView = new YouTubePlayerView(activity);
 
-        id_player.addView(youtubePlayerView);
+        id_player.addView(youtubePlayerView);*/
 
         activity.getLifecycle().addObserver(youtubePlayerView);
         youtubePlayerView.getPlayerUiController().enableLiveVideoUi(true);
@@ -133,8 +145,9 @@ listener.onFail(e.getMessage());
 
         youtubePlayerView.getPlayerUiController().showDuration(false);
         youtubePlayerView.getPlayerUiController().showYouTubeButton(false);
-        youtubePlayerView.setVisibility(View.GONE);
+    //    youtubePlayerView.setVisibility(View.GONE);
         youtubePlayerView.getPlayerUiController().showVideoTitle(false);
+        youtubePlayerView.getPlayerUiController().showFullscreenButton(false);
         youtubePlayerView.setEnableAutomaticInitialization(false);
        // youtubePlayerView.getPlayerUiController().showUi(false);
         final String finalVideourl = videourl;
@@ -160,6 +173,7 @@ if(playerState == PlayerConstants.PlayerState.UNSTARTED){
    // Log.e("MAIN", "NO EMPEZADO");
 }else if(playerState == PlayerConstants.PlayerState.PLAYING && playingFirst){
     youtubePlayerView.setVisibility(View.VISIBLE);
+    liveCorrect.onLoad();
     youTubePlayer.play();
     playingFirst = false;
 }
@@ -202,4 +216,64 @@ if(playerState == PlayerConstants.PlayerState.UNSTARTED){
 
 
     private static boolean playingFirst = true;
+
+
+    public static void realtimeDataViewVideo(Activity activity, String url_live, long secs,onLoadViewInterface viewInterface){
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getDataView(activity, url_live, viewInterface);
+                    }
+                });
+
+            }
+        }, 1, secs * 1000);
+
+    }
+
+
+    private static void getDataView(Context context, String url_live, onLoadViewInterface viewInterface){
+
+       final RequestQueue queue = Volley.newRequestQueue(context);
+        final String key = "\"text\":\"";
+        StringRequest request = new StringRequest(Request.Method.GET, url_live, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String[] r = response.split(key);
+              //  Log.e("MAIN", "CONTAINS "+response.contains(key));
+              //  Log.e("MAIN", "onResponse: "+r.length);
+                String cero = r[2];
+
+                cero = cero.split("w")[0];
+
+                viewInterface.onGetView(cero.replace(" ", ""));
+             //   Log.e("MAIN", "onResponse: "+cero);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("MAIN", "onErrorResponse: " + error.getMessage());
+            }
+        });
+
+        queue.add(request);
+        queue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<Object>() {
+            @Override
+            public void onRequestFinished(Request<Object> request) {
+              //  Log.e("MAIN", "onRequestFinished: ");
+                queue.getCache().clear();
+            }
+        });
+    }
+
+    public interface onLoadViewInterface{
+        void onGetView(String v);
+    }
 }

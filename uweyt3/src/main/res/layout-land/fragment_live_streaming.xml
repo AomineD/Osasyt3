@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textSize="18sp"
+                android:id="@+id/title_ch"
+                android:text="Lorem Ipsum"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                />
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="15dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/share_button"
+                    android:layout_margin="8dp"
+                    android:id="@+id/share"
+                    />
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="7dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:id="@+id/follow_btn"
+                    android:padding="8dp"
+                    android:text="@string/follow"
+                    android:textColor="@color/white"
+                    />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_rec_chat"
+            android:id="@+id/rec_chat"
+            />
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/colorHeader"
+                app:cardCornerRadius="15dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="@dimen/margin_to_fb"
+                android:layout_gravity="bottom"
+                app:cardElevation="0dp"
+                >
+
+                <EditText
+                    android:id="@+id/message_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+
+                    android:fontFamily="@font/roboto"
+                    android:hint="@string/hint_def"
+                    android:textColor="@color/colorHeaderText"
+                    android:textColorHint="@color/colorHeaderText" />
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/send_btn"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom"
+                app:backgroundTint="@color/colorHeader"
+                android:tint="@color/colorHeaderText"
+                app:srcCompat="@drawable/right_arrow"
+                app:fabCustomSize="48dp"
+                android:layout_marginBottom="@dimen/margin_to_fb"
+                />
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:layout_width="40dp"
+                android:id="@+id/menufloating"
+                app:fab_labelStyle="@style/FABEtiquetas"
+                app:fab_addButtonSize="normal"
+                app:fab_addButtonColorNormal="?attr/colorPrimary"
+                android:layout_gravity="bottom"
+                app:fab_labelsPosition="left"
+                android:layout_height="wrap_content">
+
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/share_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="?attr/colorAccent"
+                    app:fab_icon="@drawable/ic_sharechat"
+                    app:fab_size="mini"
+                    app:fab_title="" />
+
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/donate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="?attr/colorAccent"
+                    app:fab_icon="@drawable/ic_sharechat"
+                    app:fab_size="mini"
+                    app:fab_title="" />
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/loading_relay"
+        android:background="@color/black_until"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:lottie_fileName="loading_live.json"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:layout_width="match_parent"
+            android:id="@+id/player_view"
+            android:layout_height="match_parent">
+
+        </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_backi"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/backbuttn"
+                />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/eye_ic"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="14sp"
+                android:id="@+id/views_player"
+                android:text="0"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="4dp"
+            android:layout_alignParentBottom="true"
+            app:srcCompat="@drawable/ic_full"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

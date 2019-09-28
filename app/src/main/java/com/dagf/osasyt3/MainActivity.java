@@ -1,101 +1,145 @@
 package com.dagf.osasyt3;
 
+import android.Manifest;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.dagf.uweyt3.PornBi;
-import com.dagf.uweyt3.Ytmp3;
-import com.dagf.uweyt3.Ytmp4;
+import com.dagf.uweyt3.DonationDialog;
+import com.dagf.uweyt3.livestreaming.LiveStreamingFragment;
+import com.google.android.exoplayer2.C;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.dagf.osasyt3.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Ytmp3 ytmp3;
+ //   private Ytmp3 ytmp3;
+
     String rr = "nada";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-
-     //   Ytmp4.playLiveVideo(this, "https://youtu.be/05K00cYTFO8", R.id.youtube_player);
-
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 103);
 
 
-
-        AsyncTask.execute(new Runnable() {
+     /*  Ytmp4.realtimeDataViewVideo(this, "https://www.youtube.com/watch?v=VDtNamYUi-c", 4,new Ytmp4.onLoadViewInterface() {
             @Override
-            public void run() {
-                try {
+            public void onGetView(String v) {
+                Log.e("MAIN", v);
+            }
+        });*/
 
-                    PornBi b = new PornBi();
+        LiveStreamingFragment fragment = new LiveStreamingFragment();
 
-                    ArrayList<String> sr = new ArrayList<>(b.getCategories().values());
+        fragment.setAppCompatActivity(this, new LiveStreamingFragment.LiveStreamingListener() {
+            @Override
+            public void onShareChat() {
+                Toast.makeText(MainActivity.this, "Share chat", Toast.LENGTH_SHORT).show();
 
+            }
 
-                    Log.e("MAIN", "onCreate: "+sr.size() + " count "+b);
+            @Override
+            public void onShare() {
+                Toast.makeText(MainActivity.this, "Share", Toast.LENGTH_SHORT).show();
 
-              List<String> jaja = b.getViewUrls(sr.get(0));
+            }
 
+            @Override
+            public void onDonate() {
+                //Toast.makeText(MainActivity.this, "Donation", Toast.LENGTH_SHORT).show();
 
-                    Log.e("MAIN", "run: "+jaja.size());
+                DonationDialog donationDialog = new DonationDialog(MainActivity.this);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("MAIN", "PROBLEM "+e.getMessage() );
+                donationDialog.setListener(new DonationDialog.onDonateListener() {
+                    @Override
+                    public void onTryDonate(int value) {
+                        Toast.makeText(MainActivity.this, "VALOR "+value+" PB", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-                }
+                donationDialog.show();
+            }
+
+            @Override
+            public void onSendMessage() {
+                Toast.makeText(MainActivity.this, "send", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFollow(TextView clicked, boolean following) {
+               fragment.changeFollowStatus();
+            }
+
+            @Override
+            public void onBack() {
+                Toast.makeText(MainActivity.this, "Backing", Toast.LENGTH_SHORT).show();
             }
         });
+        fragment.setName("Diego");
 
-     /*   final ArrayList<String> urlYoutube = new ArrayList<>();
+        fragment.setNameCh("Diego's Channel");
+fragment.setUrlTo("https://www.youtube.com/watch?v=gVH6WvzwGeM");
+fragment.setIdentifier("Diego/LAN");
+fragment.setDiasMaximos(1);
+fragment.setUrrPhoto("https://www.salsalol.com/images/champions/Illaoi.png?v=32?1569462185");
+fragment.setMaxMessage(8);
+fragment.setNameP("Diego", new LiveStreamingFragment.onBanUser() {
+    @Override
+    public void whenBanUser(String username) {
 
-        urlYoutube.add("https://www.youtube.com/watch?v=rKWgmeqOi8k");
-      //  urlYoutube.add("326897828");
-       // urlYoutube.add("237046615");
+    }
+});
+fragment.setWithAds(true, "2505373932857364_2505378202856937");
+fragment.setDebg(true);
+//fragment.isAdminSender = true;
+getSupportFragmentManager().beginTransaction().replace(R.id.layad, fragment).commitAllowingStateLoss();
 
-final VideoView videoView = findViewById(R.id.videow);
-   Ytmp4.getUrlOf(this, "https://www.youtube.com/watch?v=rKWgmeqOi8k", Ytmp4.Calidad.media, new Ytmp4.onGetUrl() {
-       @Override
-       public void onCompleteGot(String url) {
 
-           try {
-               //String link="http://s1133.photobucket.com/albums/m590/Anniebabycupcakez/?action=view&amp; current=1376992942447_242.mp4";
-               VideoView videoView = findViewById(R.id.videow);
-               MediaController mediaController = new MediaController(MainActivity.this);
-               mediaController.setAnchorView(videoView);
-               Uri video = Uri.parse(url);
-               videoView.setMediaController(mediaController);
-               videoView.setVideoURI(video);
-               videoView.start();
-           } catch (Exception e) {
-               // TODO: handle exception
-               Toast.makeText(MainActivity.this, "Error connecting", Toast.LENGTH_SHORT).show();
-           }
-       }
-
-       @Override
-       public void onFail(String cause) {
-           Log.e("MAIN", "onFail: "+cause );
-       }
-   });*/
-
+//fragment.sendDonateMessage(90);
+        //   videoView.start();
 
     }
 
 
+
+
+    public void generateNoteOnSD(Context context, String sFileName, String sBody) {
+        try {
+            File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            File gpxfile = new File(root, sFileName);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(sBody);
+            writer.flush();
+            writer.close();
+            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

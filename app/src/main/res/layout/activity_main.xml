@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:layout_width="match_parent"
-        android:id="@+id/youtube_player"
-        android:layout_height="match_parent">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:id="@+id/layad"
+    android:layout_height="match_parent">
 
-    </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
-
+</FrameLayout>
 
 </RelativeLayout>

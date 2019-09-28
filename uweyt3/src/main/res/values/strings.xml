@@ -1,3 +1,36 @@
 <resources>
 
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_def">Escribe aqui..</string>
+    <string name="share_live">Compartir</string>
+    <string name="follow">Seguir</string>
+    <string name="following">Siguiendo</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="ok_donate">Donate</string>
+    <string name="title_donate">Donate PB :)</string>
+    <string name="more_pb">More PB</string>
+
+
+    <color name="colorHeader">#FFF</color>
+    <color name="colorHeaderText">#000</color>
+    <color name="graylight">#FFF</color>
+    <color name="black">#000</color>
+    <color name="black_until">#9F000000</color>
+    <color name="yellow">#fff</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="white">#fff</color>
+
+    <color name="background_live">#1e1e1e</color>
+    <color name="admin_texts">#fff</color>
+    <color name="tran">#00000000</color>
+
+
+    <style name="FABEtiquetas">
+        <item name="android:background">@color/tran</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>
