@@ -67,6 +67,8 @@ public class LiveStreamingFragment extends Fragment {
         void onFollow(TextView clicked, boolean isFollowing);
 
         void onBack();
+
+        void onClickUser();
     }
 
 
