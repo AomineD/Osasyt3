@@ -259,6 +259,12 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
         send_msg = v.findViewById(R.id.send_btn);
 
 
+        nameChView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                streamingListener.onClickUser();
+            }
+        });
 
         if(isDebug)
             Log.e("MAIN", "onCreateView: BASE DE DATOS => "+databaseReference.getRef().toString());
