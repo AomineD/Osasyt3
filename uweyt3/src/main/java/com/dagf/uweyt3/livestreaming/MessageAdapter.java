@@ -429,9 +429,9 @@ linearLayout = itemView.findViewById(R.id.layad);
             mediaPhoto = itemView.findViewById(R.id.media_f);
             mediaText = itemView.findViewById(R.id.t_mediainfo);
 
-            lottie_1 = itemView.findViewById(R.id.lottie1);
-            lottie_2 = itemView.findViewById(R.id.lottie2);
-            lottie_3 = itemView.findViewById(R.id.lottie3);
+            lottie_1 = itemView.findViewById(R.id.lottie_1);
+            lottie_2 = itemView.findViewById(R.id.lottie_2);
+            lottie_3 = itemView.findViewById(R.id.lottie_3);
         }
     }
 

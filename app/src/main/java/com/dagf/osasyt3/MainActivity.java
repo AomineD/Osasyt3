@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
             public void onBack() {
                 Toast.makeText(MainActivity.this, "Backing", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onClickUser() {
+
+            }
         });
         fragment.setName("Diego");
 

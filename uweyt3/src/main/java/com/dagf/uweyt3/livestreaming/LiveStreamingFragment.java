@@ -250,12 +250,6 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
 
         /** CHAT **/
         message = v.findViewById(R.id.message_edt);
-     /*   profile_name = v.findViewById(R.id.profile_nam);
-        profile_pic = v.findViewById(R.id.image_prf);*/
-
-        /*profile_name.setText(nameF);
-        Picasso.get().load(Uri.parse(urrPhoto)).placeholder(R.drawable.ic_avatar_default).fit().into(profile_pic);
-*/
         send_msg = v.findViewById(R.id.send_btn);
 
 
