@@ -159,15 +159,23 @@ public class LiveStreamingFragment extends Fragment {
 
     private void SetupViews(View v) {
 
-        AdSettings.setDebugBuild(true);
+      //  AdSettings.setDebugBuild(true);
 
         v.findViewById(R.id.full_screen).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(rot == 0){
+                    v.findViewById(R.id.laychat).setVisibility(View.GONE);
+                    v.findViewById(R.id.card_bottom).setVisibility(View.GONE);
+                    v.findViewById(R.id.namai).setVisibility(View.GONE);
+                    v.findViewById(R.id.rec_chat).setVisibility(View.GONE);
                     appCompatActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     rot = 1;
                 }else if(rot == 1){
+                    v.findViewById(R.id.laychat).setVisibility(View.VISIBLE);
+                    v.findViewById(R.id.card_bottom).setVisibility(View.VISIBLE);
+                    v.findViewById(R.id.namai).setVisibility(View.VISIBLE);
+                    v.findViewById(R.id.rec_chat).setVisibility(View.VISIBLE);
                     appCompatActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     rot = 0;
                 }

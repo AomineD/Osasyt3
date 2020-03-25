@@ -86,62 +86,61 @@
 </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/namai"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            >
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/title_ch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_gravity="center_vertical"
-                android:textSize="18sp"
-                android:id="@+id/title_ch"
-            android:text="Lorem Ipsum"
                 android:layout_weight="1"
+                android:text="Lorem Ipsum"
                 android:textColor="@color/white"
-                />
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="15dp"
-                android:layout_height="wrap_content">
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardCornerRadius="15dp">
 
                 <ImageView
+                    android:id="@+id/share"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/share_button"
                     android:layout_margin="8dp"
-                    android:id="@+id/share"
-                    />
+                    app:srcCompat="@drawable/share_button" />
 
             </androidx.cardview.widget.CardView>
-<androidx.cardview.widget.CardView
-    android:layout_width="wrap_content"
-    android:layout_gravity="center_vertical"
-    app:cardBackgroundColor="@color/colorPrimaryDark"
-   android:layout_margin="8dp"
-    app:cardCornerRadius="7dp"
-    android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_gravity="center_vertical"
-        android:textSize="18sp"
-        android:id="@+id/follow_btn"
-        android:padding="8dp"
-        android:text="@string/follow"
-        android:textColor="@color/white"
-        />
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardCornerRadius="7dp">
 
-</androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/follow_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:text="@string/follow"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -168,30 +167,30 @@
         app:cardElevation="0dp"
         android:layout_gravity="bottom"
         />
-    <RelativeLayout
-        android:layout_width="match_parent"
 
+    <RelativeLayout
+        android:id="@+id/laychat"
+
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
 
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="@dimen/margin_to_fb"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/colorHeader"
                 app:cardCornerRadius="15dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="@dimen/margin_to_fb"
-                android:layout_gravity="bottom"
-                app:cardElevation="0dp"
-                >
+                app:cardElevation="0dp">
 
                 <EditText
                     android:id="@+id/message_edt"
@@ -206,27 +205,15 @@
                     android:textColorHint="@color/colorHeaderText" />
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/send_btn"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_gravity="bottom"
-                app:backgroundTint="@color/colorHeader"
-                android:tint="@color/colorHeaderText"
-                app:srcCompat="@drawable/right_arrow"
-                app:fabCustomSize="48dp"
-                android:layout_marginBottom="@dimen/margin_to_fb"
-                />
-
             <com.getbase.floatingactionbutton.FloatingActionsMenu
-                android:layout_width="40dp"
                 android:id="@+id/menufloating"
-                app:fab_labelStyle="@style/FABEtiquetas"
-                app:fab_addButtonSize="normal"
-                app:fab_addButtonColorNormal="?attr/colorPrimary"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:fab_labelsPosition="left"
-                android:layout_height="wrap_content">
+                app:fab_addButtonColorNormal="?attr/colorPrimary"
+                app:fab_addButtonSize="normal"
+                app:fab_labelStyle="@style/FABEtiquetas"
+                app:fab_labelsPosition="left">
 
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
@@ -249,6 +236,17 @@
                     app:fab_title="" />
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/send_btn"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/margin_to_fb"
+                android:tint="@color/colorHeaderText"
+                app:backgroundTint="@color/colorHeader"
+                app:fabCustomSize="48dp"
+                app:srcCompat="@drawable/right_arrow" />
 
         </LinearLayout>
 
