@@ -228,6 +228,22 @@ listener.clickingMessage(mf.getName_of());
                             messageViewHolder.lottie_2.setVisibility(View.GONE);
                             messageViewHolder.lottie_3.setVisibility(View.GONE);
                 }
+
+                if(messageOf.get(i).getType_mensaje().equals("8")){
+                    messageViewHolder.mesn.setVisibility(View.GONE);
+                    if(messageOf.get(i).getMesg().equals("❤️")){
+                        messageViewHolder.heart.setVisibility(View.VISIBLE);
+                        messageViewHolder.like.setVisibility(View.GONE);
+                    }else{
+                        messageViewHolder.like.setVisibility(View.VISIBLE);
+                        messageViewHolder.heart.setVisibility(View.GONE);
+                    }
+                }else{
+                    messageViewHolder.mesn.setVisibility(View.VISIBLE);
+                    messageViewHolder.like.setVisibility(View.GONE);
+                    messageViewHolder.heart.setVisibility(View.GONE);
+                }
+
                 messageViewHolder.mesn.setTextSize(24);
             }
             else {
@@ -331,6 +347,9 @@ listener.clickingMessage(mf.getName_of());
                     messageViewHolder.lottie_3.setVisibility(View.GONE);
             }
 
+            Log.e(TAG, "SetupMessageAdmin: "+messageReceive.getType_mensaje() );
+
+
             messageViewHolder.mesn.setTextSize(24);
 
         }
@@ -409,6 +428,8 @@ listener.clickingMessage(mf.getName_of());
         private View lottie_1;
         private View lottie_2;
         private View lottie_3;
+        private View heart;
+        private View like;
         private AdView adView2;
         private LinearLayout linearLayout;
         private View base;
@@ -430,16 +451,22 @@ linearLayout = itemView.findViewById(R.id.layad);
             mediaText = itemView.findViewById(R.id.t_mediainfo);
 
             lottie_1 = itemView.findViewById(R.id.lottie_1);
+            heart = itemView.findViewById(R.id.heart);
+            like = itemView.findViewById(R.id.like);
             lottie_2 = itemView.findViewById(R.id.lottie_2);
             lottie_3 = itemView.findViewById(R.id.lottie_3);
         }
     }
 
-    public void addMessage(MessageReceive msg){
+    void addMessage(MessageReceive msg){
         messageOf.add(msg);
         notifyItemInserted(messageOf.size() - 1);
     }
 
+    public void setNewList(ArrayList<MessageReceive> messagesNew){
+        messageOf = messagesNew;
+        notifyDataSetChanged();
+    }
 
 
 }

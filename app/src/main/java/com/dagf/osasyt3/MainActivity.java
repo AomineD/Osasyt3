@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTryDonate(int value) {
                         Toast.makeText(MainActivity.this, "VALOR "+value+" PB", Toast.LENGTH_SHORT).show();
+                  fragment.sendDonateMessage(value);
                     }
                 });
 
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setName("Diego");
 
         fragment.setNameCh("Diego's Channel");
-fragment.setUrlTo("https://www.youtube.com/watch?v=gVH6WvzwGeM");
+fragment.setUrlTo("https://www.youtube.com/watch?v=8XL8Qk4qzyA");
 fragment.setIdentifier("Diego/LAN");
 fragment.setDiasMaximos(1);
 fragment.setUrrPhoto("https://www.salsalol.com/images/champions/Illaoi.png?v=32?1569462185");

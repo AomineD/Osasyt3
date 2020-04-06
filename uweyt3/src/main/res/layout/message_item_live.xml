@@ -164,6 +164,30 @@
                 app:lottie_fileName="donations_3.json"
                 android:visibility="gone"
                 />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                app:lottie_fileName="heart_anim.json"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                android:id="@+id/heart"
+                />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                app:lottie_fileName="like_anim.json"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                android:id="@+id/like"
+                />
         </LinearLayout>
 
     </LinearLayout>

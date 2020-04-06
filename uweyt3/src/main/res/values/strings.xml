@@ -24,6 +24,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="white">#fff</color>
 
+
+    <color name="blacklight">#6B1E1E1E</color>
     <color name="background_live">#1e1e1e</color>
     <color name="admin_texts">#fff</color>
     <color name="tran">#00000000</color>

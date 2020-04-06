@@ -1,6 +1,8 @@
 package com.dagf.uweyt3.livestreaming;
 
 
+import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -18,13 +20,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.dagf.uweyt3.R;
 import com.dagf.uweyt3.Ytmp4;
+import com.dagf.uweyt3.utils.UtilsFullScreen;
 import com.facebook.ads.AdSettings;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -73,7 +81,7 @@ public class LiveStreamingFragment extends Fragment {
 
 
 
-    private LiveStreamingListener streamingListener;
+    public LiveStreamingListener streamingListener;
 
     public LiveStreamingFragment() {
         // Required empty public constructor
@@ -129,6 +137,12 @@ public class LiveStreamingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        if(getActivity() == null){
+            return null;
+        }
+
+
         View v = inflater.inflate(R.layout.fragment_live_streaming, container, false);
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -137,6 +151,23 @@ public class LiveStreamingFragment extends Fragment {
 
 
         return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(getActivity() == null){
+            return;
+        }
+
+        if(rot == 1) {
+        //    getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        }
     }
 
     private TextView nameChView;
@@ -157,30 +188,52 @@ public class LiveStreamingFragment extends Fragment {
 
     private static int rot = 0;
 
+    UtilsFullScreen yfull;
     private void SetupViews(View v) {
-
+        yfull = new UtilsFullScreen(v, this);
       //  AdSettings.setDebugBuild(true);
+// FULL SCREEN
+        if(rot == 1){
+            v.findViewById(R.id.backbuttn).setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("SourceLockedOrientationActivity")
+                @Override
+                public void onClick(View v) {
+                    appCompatActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    rot = 0;
+                }
+            });
+
+
+
+
+            yfull.configFull();
+
+        }else{
+            v.findViewById(R.id.backbuttn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getActivity() != null)
+                        getActivity().finish();
+                }
+            });
+        }
 
         v.findViewById(R.id.full_screen).setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SourceLockedOrientationActivity")
             @Override
             public void onClick(View v) {
                 if(rot == 0){
-                    v.findViewById(R.id.laychat).setVisibility(View.GONE);
-                    v.findViewById(R.id.card_bottom).setVisibility(View.GONE);
-                    v.findViewById(R.id.namai).setVisibility(View.GONE);
-                    v.findViewById(R.id.rec_chat).setVisibility(View.GONE);
-                    appCompatActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     rot = 1;
+                    appCompatActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
                 }else if(rot == 1){
-                    v.findViewById(R.id.laychat).setVisibility(View.VISIBLE);
-                    v.findViewById(R.id.card_bottom).setVisibility(View.VISIBLE);
-                    v.findViewById(R.id.namai).setVisibility(View.VISIBLE);
-                    v.findViewById(R.id.rec_chat).setVisibility(View.VISIBLE);
                     appCompatActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     rot = 0;
                 }
             }
         });
+
+
 
         menu = v.findViewById(R.id.menufloating);
         v.findViewById(R.id.share_chat).setOnClickListener(new View.OnClickListener() {
@@ -234,7 +287,7 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
 
         nameChView.setText(nameCh);
 
-        Ytmp4.realtimeDataViewVideo(appCompatActivity, urlTo, 4, new Ytmp4.onLoadViewInterface() {
+        Ytmp4.realtimeDataViewVideo(appCompatActivity, urlTo, 10, new Ytmp4.onLoadViewInterface() {
             @Override
             public void onGetView(String v) {
                 try {
@@ -265,6 +318,15 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
             @Override
             public void onClick(View v) {
                 streamingListener.onClickUser();
+            }
+        });
+
+       donate_watch = v.findViewById(R.id.donate_watch);
+
+               donate_watch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeAdapter();
             }
         });
 
@@ -315,7 +377,7 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
                     clikS.OnSend();
                 }
                 streamingListener.onSendMessage();
-                SendMessage(false);
+                sendMessage(false);
             }
         });
 
@@ -330,6 +392,92 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
 
         SetupadapteR();
 
+    }
+
+    private ImageView donate_watch;
+    private void changeAdapter() {
+
+        ordenedPbDonation.clear();
+
+        String type = "3";
+        for(int i=0; i < messageArrayList.size(); i++){
+         //   Log.e("MAIN", "changeAdapter: "+messageArrayList.get(i).getType_mensaje() );
+            if(messageArrayList.get(i).isAd){
+                ordenedPbDonation.add(messageArrayList.get(i));
+            }else
+            if(messageArrayList.get(i).getType_mensaje().equals(type)){
+                ordenedPbDonation.add(messageArrayList.get(i));
+            }
+        }
+
+        type = "2";
+        for(int i=0; i < messageArrayList.size(); i++){
+            if(messageArrayList.get(i).isAd){
+                ordenedPbDonation.add(messageArrayList.get(i));
+            }else
+            if(messageArrayList.get(i).getType_mensaje().equals(type)){
+                ordenedPbDonation.add(messageArrayList.get(i));
+            }
+        }
+
+        type = "1";
+        for(int i=0; i < messageArrayList.size(); i++){
+            if(messageArrayList.get(i).isAd){
+                ordenedPbDonation.add(messageArrayList.get(i));
+            }else
+            if(messageArrayList.get(i).getType_mensaje().equals(type)){
+                ordenedPbDonation.add(messageArrayList.get(i));
+            }
+        }
+
+
+
+        if(ordenedPbDonation.size() < 1){
+            Toast.makeText(appCompatActivity, "No donations :(", Toast.LENGTH_SHORT).show();
+return;
+        }else{
+            list_mesg.scrollToPosition(0);
+        }
+
+            adapter.setNewList(ordenedPbDonation);
+
+
+        donate_watch.setImageDrawable(getResources().getDrawable(R.drawable.ic_backi));
+        donate_watch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.setNewList(messageArrayList);
+                donate_watch.setImageDrawable(getResources().getDrawable(R.drawable.ic_donate));
+
+                donate_watch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        changeAdapter();
+                    }
+                });
+                list_mesg.scrollToPosition(adapter.getItemCount() - 1);
+
+            }
+        });
+
+    }
+
+
+    /** =========== ANIMATIONS ON FULL SCREEN ============= **/
+    public void sendAnyMessage(String ms){
+        MessageSend mss = new MessageSend();
+
+        mss.setIsAdmin(isAdminSender ? "true" : "false");
+        mss.setHora(ServerValue.TIMESTAMP);
+        String men = ms;//"❤️";
+
+        mss.setType_mensaje("8");
+        mss.setMesg(men);
+
+        mss.setSnap(identifier);
+        mss.setName_of(nameF);
+        mss.setUrlProfilePic(urrPhoto);
+        databaseReference.push().setValue(mss);
     }
 
 
@@ -401,7 +549,7 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
     private String actionn;
     private String cl;
     public boolean isAdminSender = false;
-    private void SendMessage(boolean isMedia) {
+    private void sendMessage(boolean isMedia) {
         if (database != null && (!message.getText().toString().isEmpty() || isMedia)) {
             if(nameBanneds.contains(nameF)){
                 Toast.makeText(getContext(), "Has sido baneado por algun admin", Toast.LENGTH_SHORT).show();
@@ -464,6 +612,7 @@ if(isRudness(men)){
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private ArrayList<MessageReceive> messageArrayList = new ArrayList<>();
+    private ArrayList<MessageReceive> ordenedPbDonation = new ArrayList<>();
 
     public void setDebg (boolean ss){
         isDebug = ss;
@@ -494,6 +643,13 @@ if(isRudness(men)){
 
                 if(dataSnapshot.getKey().equals(keyactual)){
                     return;
+                }
+
+                if(m.getType_mensaje().equals("8") && m.getMesg().contains("\uD83D\uDC4D") && rot == 1){
+                    Log.e("MAIN", "onChildAdded: "+(yfull != null) );
+                    yfull.createViewAnimate(0);
+                }else if(m.getType_mensaje().equals("8") && m.getMesg().contains("❤️") && rot == 1){
+                    yfull.createViewAnimate(1);
                 }
 
                 keyactual = dataSnapshot.getKey();

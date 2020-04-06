@@ -245,8 +245,8 @@ if(playerState == PlayerConstants.PlayerState.UNSTARTED){
             @Override
             public void onResponse(String response) {
                 String[] r = response.split(key);
-              //  Log.e("MAIN", "CONTAINS "+response.contains(key));
-              //  Log.e("MAIN", "onResponse: "+r.length);
+                Log.e("MAIN", "CONTAINS "+response.contains(key));
+                Log.e("MAIN", "onResponse: "+r.length);
                 String cero = r[2];
 
                 cero = cero.split("w")[0];
@@ -259,7 +259,7 @@ if(playerState == PlayerConstants.PlayerState.UNSTARTED){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("MAIN", "onErrorResponse: " + error.getMessage());
+        //        Log.e("MAIN", "onErrorResponse: " + error.getMessage());
             }
         });
 

@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:visibility="gone"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -25,6 +26,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/white"
                 />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -244,7 +246,51 @@
                 />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/blacklight"
+            android:id="@+id/lay_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            >
+
+            <ImageView
+                android:id="@+id/donate_inm"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                app:srcCompat="@drawable/ic_donate_round"
+                />
+
+           <ImageView
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:id="@+id/like"
+               android:layout_gravity="center_vertical"
+               android:layout_margin="4dp"
+               android:layout_weight="1"
+               app:srcCompat="@drawable/like_ic"
+               />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/heart"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/heart_ic"
+                />
+
+        </LinearLayout>
+
         <ImageView
+            android:id="@+id/full_screen"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="4dp"
@@ -252,6 +298,15 @@
             app:srcCompat="@drawable/ic_full"
             android:layout_alignParentEnd="true"
             />
+        <RelativeLayout
+            android:id="@+id/inflaterContainerLL"
+            android:layout_height="250dp"
+            android:gravity="bottom"
+            android:layout_above="@id/lay_bottom"
+            android:layout_width="150dp"
+            android:orientation="vertical">
+        </RelativeLayout>
+
 
     </RelativeLayout>
 
