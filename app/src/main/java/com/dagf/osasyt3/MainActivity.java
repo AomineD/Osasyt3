@@ -2,6 +2,7 @@ package com.dagf.osasyt3;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
@@ -19,7 +20,11 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.dagf.uweyt3.DonationDialog;
+import com.dagf.uweyt3.Ytmp4;
+import com.dagf.uweyt3.iptv.ChannelCategoryActivity;
+import com.dagf.uweyt3.iptv.ExoPlayerActivity;
 import com.dagf.uweyt3.livestreaming.LiveStreamingFragment;
+import com.dagf.uweyt3.utils.UtilsIPTV;
 import com.google.android.exoplayer2.C;
 
 import java.io.File;
@@ -40,8 +45,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    UtilsIPTV.startViewIPTV(this, "By Country", "ca-app-pub-3940256099942544/6300978111", new UtilsIPTV.onClickChannel() {
+        @Override
+        public void onCliked(Bundle bundle) {
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 103);
+            Intent i = new Intent(MainActivity.this, ExoPlayerActivity.class);
+
+            i.putExtras(bundle);
+
+            Toast.makeText(MainActivity.this, "Clicked papi", Toast.LENGTH_SHORT).show();
+            startActivity(i);
+        }
+    });
+
+   /*     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 103);
 
 
      /*  Ytmp4.realtimeDataViewVideo(this, "https://www.youtube.com/watch?v=VDtNamYUi-c", 4,new Ytmp4.onLoadViewInterface() {
@@ -49,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onGetView(String v) {
                 Log.e("MAIN", v);
             }
-        });*/
+        });
 
         LiveStreamingFragment fragment = new LiveStreamingFragment();
 
@@ -123,9 +140,21 @@ fragment.setDebg(true);
 //fragment.isAdminSender = true;
 getSupportFragmentManager().beginTransaction().replace(R.id.layad, fragment).commitAllowingStateLoss();
 
-
+*/
 //fragment.sendDonateMessage(90);
         //   videoView.start();
+
+       /* Ytmp4.getUrlOf(this, "https://www.youtube.com/watch?v=WQVghd0gil4", Ytmp4.Calidad.alta, new Ytmp4.onGetUrl() {
+            @Override
+            public void onCompleteGot(String url) {
+                Log.e("MAIN", "onCompleteGot: "+url );
+            }
+
+            @Override
+            public void onFail(String cause) {
+                Log.e("MAIN", "onFail: "+cause );
+            }
+        });*/
 
     }
 

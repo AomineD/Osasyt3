@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    tools:context=".iptv.ChannelCategoryActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChannelCategory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/adContainer"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <com.agrawalsuneet.dotsloader.loaders.TashieLoader
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:tashieloader_animDelay="200"
+        app:tashieloader_animDur="1000"
+        app:tashieloader_dotsColor="@color/colorAccent"
+        app:tashieloader_dotsDist="@dimen/dotDist"
+        app:tashieloader_dotsRadius="@dimen/dotRadius"
+        app:tashieloader_interpolator="@android:anim/accelerate_interpolator"
+        app:tashieloader_noOfDots="5" />
+
+    <TextView
+        android:id="@+id/textNoChannelFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:drawableTop="@drawable/ic_tv"
+        android:drawablePadding="@dimen/_10sdp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/txt_empty_playlist"
+        android:textAlignment="center"
+        android:textSize="@dimen/_16ssp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/adContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical" />
+</RelativeLayout>

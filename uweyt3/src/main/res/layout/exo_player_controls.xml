@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_gravity="bottom"
+    android:background="#CC000000">
+
+    <ImageButton
+        android:id="@id/exo_play"
+        style="@style/ExoMediaButton.Play"
+        android:layout_gravity="center"
+        android:contentDescription="@null" />
+
+    <ImageButton
+        android:id="@id/exo_pause"
+        style="@style/ExoMediaButton.Pause"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null"
+        android:visibility="gone" />
+</FrameLayout>

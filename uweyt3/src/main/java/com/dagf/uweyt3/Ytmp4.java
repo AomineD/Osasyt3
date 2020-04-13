@@ -17,6 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.dagf.uweyt3.utils.VideoMeta;
+import com.dagf.uweyt3.utils.YouTubeExtractor;
+import com.dagf.uweyt3.utils.YtFile;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
@@ -27,12 +30,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import at.huber.youtubeExtractor.VideoMeta;
-import at.huber.youtubeExtractor.YouTubeExtractor;
-import at.huber.youtubeExtractor.YtFile;
 
 public class Ytmp4 {
 
@@ -88,32 +89,43 @@ catch (Exception e){
    //     Log.e("MAIN", "getUrlOf: "+url );
         new YouTubeExtractor(context) {
             @Override
-            public void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta vMeta) {
+            protected void onPreExecute() {
+
+            }
+
+            @Override
+            protected void onProgressUpdate(Void... progress) {
+                Log.e("MAIN", "onProgressUpdate: "+progress.length );
+            }
+
+            @Override
+            protected void onExtractionComplete(Map<Integer, YtFile> ytFiles, VideoMeta videoMeta) {
                 if (ytFiles != null) {
                     int itag = 18;
                     switch (quali) {
                         case alta:
-itag = 137;
+                            itag = 137;
                             break;
                         case media:
-itag = 136;
+                            itag = 136;
                             break;
                         case baja:
-itag = 134;
+                            itag = 134;
                             break;
                     }
-                    String downloadUrl = ytFiles.get(itag).getUrl();
-                //    Log.e("YOUTUBE::", String.valueOf(downloadUrl));
+
+
 
                     try {
-
-                     //   MediaSource mediaSource = mediaSource(Uri.parse(downloadUrl));
-                      //  player.prepare(mediaSource, true, false);
+                        String downloadUrl = ytFiles.get(itag).getUrl();
+                        Log.e("YOUTUBE::", String.valueOf(downloadUrl));
+                        //   MediaSource mediaSource = mediaSource(Uri.parse(downloadUrl));
+                        //  player.prepare(mediaSource, true, false);
 
                         listener.onCompleteGot(downloadUrl);
 
                     }catch (Exception e){
-listener.onFail(e.getMessage());
+                        listener.onFail(e.getMessage());
                     }
 
 
@@ -121,6 +133,7 @@ listener.onFail(e.getMessage());
                     listener.onFail("Nulo no hay nada");
                 }
             }
+
         }.extract(url, true, true);
 
 

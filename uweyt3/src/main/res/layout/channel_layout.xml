@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/_8sdp"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/channelLogo"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_tv" />
+
+    <TextView
+        android:id="@+id/channelName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/txt_channel_name"
+        android:textSize="@dimen/_14ssp" />
+</LinearLayout>

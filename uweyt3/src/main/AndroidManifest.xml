@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dagf.uweyt3" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.dagf.uweyt3">
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        >
+        <activity android:name=".iptv.ChannelCategoryActivity"/>
+        <activity android:name=".iptv.ExoPlayerActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".iptv.ChannelsActivity"/>
+    </application>
+</manifest>

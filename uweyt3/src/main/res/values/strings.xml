@@ -11,6 +11,22 @@
     <string name="ok_donate">Donate</string>
     <string name="title_donate">Donate PB :)</string>
     <string name="more_pb">More PB</string>
+    <string name="search">Search</string>
+
+    <string name="txt_empty_playlist">No TV Channels are Found in \nThis Playlist</string>
+    <string name="txt_channel_name">Channel Name</string>
+
+    <string name="txt_msg_play_error">
+        Currently we are having trouble while playing this channel
+        \n \t &#8226; Check your mobile internet connection
+        \n \t &#8226; Try to load this channel on other external player\'s if any.
+                \n\t\t\te.g VLC, MX Player…
+        \n\t  &#8226; May be this channel is not working, check it again later
+    </string>
+
+
+    <dimen name="dotDist">@dimen/_4sdp</dimen>
+    <dimen name="dotRadius">@dimen/_7sdp</dimen>
 
 
     <color name="colorHeader">#FFF</color>
