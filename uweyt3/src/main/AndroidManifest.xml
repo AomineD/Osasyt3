@@ -4,8 +4,8 @@
     <application
         android:networkSecurityConfig="@xml/network_security_config"
         >
-        <activity android:name=".iptv.ChannelCategoryActivity"/>
+        <activity android:name=".iptv.ChannelCategoryActivity" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity android:name=".iptv.ExoPlayerActivity" android:screenOrientation="landscape"/>
-        <activity android:name=".iptv.ChannelsActivity"/>
+        <activity android:name=".iptv.ChannelsActivity" android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
     </application>
 </manifest>
