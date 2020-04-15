@@ -16,6 +16,11 @@ import com.google.android.exoplayer2.util.Util;
 
 public class UtilsIPTV {
     public static String ad_banner;
+
+    public static String banner_audience = "";
+
+
+
     public static void startViewIPTV(Context context, String forwhat, String ad_banners, onClickChannel onClickChannel){
 Intent intent = new Intent(context, ChannelCategoryActivity.class);
         intent.putExtra("CHANNEL_BY", forwhat);
@@ -27,6 +32,8 @@ Intent intent = new Intent(context, ChannelCategoryActivity.class);
 
     public interface onClickChannel{
         void onCliked(Bundle bundle);
+
+        void clickCountry();
     }
 
 

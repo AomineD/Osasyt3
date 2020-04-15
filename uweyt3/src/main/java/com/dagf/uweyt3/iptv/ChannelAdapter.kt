@@ -27,6 +27,7 @@ class ChannelAdapter(context: Context, channelsList: List<M3UItem>, defaultIconD
     private var mOpenPlayer: Boolean
     companion object{
         public var listenerclik: UtilsIPTV.onClickChannel? = null
+
     }
 
     init {

@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader
 import com.dagf.uweyt3.R
+import com.dagf.uweyt3.utils.UtilsIPTV
+import com.facebook.ads.AdSize
+import com.facebook.ads.AdView
 
 class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListener {
 
@@ -30,6 +33,10 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
     private var gotIPTVFile: Boolean = false;
     private var noInternetDialog: NoInternetDialog? = null
     private lateinit var fileDownloader: FileDownloader
+
+    companion object{
+        public var ad_facebook_banner = UtilsIPTV.banner_audience
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +58,11 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
         rvChannelCategory?.addItemDecoration(dividerItemDecoration)
         fileDownloader = FileDownloader(this)
         fileDownloader.getIPTVFile(ApiClient.IPTV_URL, channels?.tvURL ?: "")
+
+        val adView = AdView(this,  ChannelCategoryActivity.ad_facebook_banner,  AdSize.BANNER_HEIGHT_50)
+        adView.loadAd()
+
+        adContainer!!.addView(adView)
 
         /*adsManager = AdsManager(this)
         val prefsManager = PrefsManager(this)
