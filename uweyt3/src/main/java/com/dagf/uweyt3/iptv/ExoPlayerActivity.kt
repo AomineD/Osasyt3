@@ -18,10 +18,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
 
 class ExoPlayerActivity : AppCompatActivity() {
 
@@ -35,9 +32,11 @@ class ExoPlayerActivity : AppCompatActivity() {
     private lateinit var errorMessage: TextView
     private lateinit var btnClose: ImageView
     private lateinit var btnExternalPlayer: ImageView
+    private var mInterstitialAd: InterstitialAd?=null
 
     companion object {
         public var ad_unit = "ca-app-pub-3940256099942544/6300978111"
+        public var ad_inters_unit = "ca-app-pub-3940256099942544/1033173712"
         public var key_data = "JASKKWWWWAA"
     }
 
@@ -48,6 +47,25 @@ class ExoPlayerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_exo_player)
 
         ad_unit = intent!!.getStringExtra(key_data)
+
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd!!.adUnitId = ad_inters_unit
+
+        mInterstitialAd!!.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                super.onAdClosed()
+                startPlayer()
+            }
+
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                pausePlayer()
+                mInterstitialAd!!.show()
+            }
+        }
+
+        mInterstitialAd!!.loadAd(AdRequest.Builder().build())
+
 
         btnBack = findViewById(R.id.btnBack)
         MobileAds.initialize(this) {}
