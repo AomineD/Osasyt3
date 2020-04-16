@@ -88,6 +88,7 @@ class ExoPlayerActivity : AppCompatActivity() {
         btnBack = findViewById(R.id.btnBack)
         MobileAds.initialize(this) {}
       var mAdView = AdView(this)
+        ad_view_container = findViewById<LinearLayout>(R.id.adView)
         mAdView.adUnitId = ad_unit
         mAdView.adSize = adSize
 
@@ -96,7 +97,7 @@ class ExoPlayerActivity : AppCompatActivity() {
 
         mAdView.loadAd(adRequest)
 
-        ad_view_container = findViewById<LinearLayout>(R.id.adView)
+
                 ad_view_container!!.addView(mAdView)
 
         btnClose = findViewById(R.id.btnClose)
