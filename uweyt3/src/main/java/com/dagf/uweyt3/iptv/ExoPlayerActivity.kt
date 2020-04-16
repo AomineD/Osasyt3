@@ -3,6 +3,7 @@ package com.dagf.uweyt3.iptv
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -40,8 +41,25 @@ class ExoPlayerActivity : AppCompatActivity() {
         public var key_data = "JASKKWWWWAA"
     }
 
+    private val adSize: AdSize
+        get() {
+            val display = windowManager.defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display.getMetrics(outMetrics)
+
+            val density = outMetrics.density
+
+            var adWidthPixels = ad_view_container!!.width.toFloat()
+            if (adWidthPixels == 0f) {
+                adWidthPixels = outMetrics.widthPixels.toFloat()
+            }
+
+            val adWidth = (adWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
+        }
 
 
+    private var ad_view_container:LinearLayout?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exo_player)
@@ -71,12 +89,15 @@ class ExoPlayerActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
       var mAdView = AdView(this)
         mAdView.adUnitId = ad_unit
-        mAdView.adSize = AdSize.BANNER
+        mAdView.adSize = adSize
 
         val adRequest = AdRequest.Builder().build()
+
+
         mAdView.loadAd(adRequest)
 
-        findViewById<LinearLayout>(R.id.adView).addView(mAdView)
+        ad_view_container = findViewById<LinearLayout>(R.id.adView)
+                ad_view_container!!.addView(mAdView)
 
         btnClose = findViewById(R.id.btnClose)
         channelName = findViewById(R.id.channelName)

@@ -34,9 +34,6 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
     private var noInternetDialog: NoInternetDialog? = null
     private lateinit var fileDownloader: FileDownloader
 
-    companion object{
-        public var ad_facebook_banner = UtilsIPTV.banner_audience
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
