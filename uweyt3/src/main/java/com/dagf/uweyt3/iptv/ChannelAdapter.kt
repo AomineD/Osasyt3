@@ -80,6 +80,7 @@ class ChannelAdapter(context: Context, channelsList: List<M3UItem>, defaultIconD
                 val intent = Intent(mContext, ChannelsActivity::class.java)
                 intent.putExtra("CHANNELS", channel)
                 mContext.startActivity(intent)
+                listenerclik!!.clickCountry()
             }
         }
     }

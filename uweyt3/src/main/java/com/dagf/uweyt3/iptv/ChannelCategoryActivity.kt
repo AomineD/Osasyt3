@@ -76,13 +76,13 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
             }
 
             override fun onError(p0: Ad?, p1: AdError?) {
-        Log.e("MAIN", "error banner "+p1!!.errorMessage + " "+ ad_facebook_banner)
-         Toast.makeText(applicationContext, "Error en banner: "+p1!!.errorMessage, Toast.LENGTH_LONG).show()
+       // Log.e("MAIN", "error banner "+p1!!.errorMessage + " "+ ad_facebook_banner)
+        // Toast.makeText(applicationContext, "Error en banner: "+p1!!.errorMessage, Toast.LENGTH_LONG).show()
             }
 
             override fun onAdLoaded(p0: Ad?) {
 Log.e("MAIN", "Loaded banner audience")
-                Toast.makeText(applicationContext, "Cargado el banner", Toast.LENGTH_LONG).show()
+        //        Toast.makeText(applicationContext, "Cargado el banner", Toast.LENGTH_LONG).show()
 
             }
 
