@@ -71,4 +71,5 @@ dependencies {
     implementation 'com.facebook.android:audience-network-sdk:5.7.1'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'joda-time:joda-time:2.10.2'
+    implementation 'androidx.annotation:annotation:1.1.0'
 }

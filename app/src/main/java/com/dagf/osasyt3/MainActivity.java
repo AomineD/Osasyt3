@@ -25,6 +25,7 @@ import com.dagf.uweyt3.iptv.ChannelCategoryActivity;
 import com.dagf.uweyt3.iptv.ExoPlayerActivity;
 import com.dagf.uweyt3.livestreaming.LiveStreamingFragment;
 import com.dagf.uweyt3.utils.UtilsIPTV;
+import com.facebook.ads.AdSettings;
 import com.google.android.exoplayer2.C;
 
 import java.io.File;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+  /*      AdSettings.setDebugBuild(true);
+
+        UtilsIPTV.banner_audience = "359004844525143_855073358251620";
     UtilsIPTV.startViewIPTV(this, "By Country", "ca-app-pub-3940256099942544/6300978111", new UtilsIPTV.onClickChannel() {
         @Override
         public void onCliked(Bundle bundle) {
@@ -56,12 +60,19 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Clicked papi", Toast.LENGTH_SHORT).show();
             startActivity(i);
         }
-    });
 
-   /*     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 103);
+        @Override
+        public void clickCountry() {
+            Toast.makeText(MainActivity.this, "clicked country", Toast.LENGTH_SHORT).show();
+        }
+    });*/
 
 
-     /*  Ytmp4.realtimeDataViewVideo(this, "https://www.youtube.com/watch?v=VDtNamYUi-c", 4,new Ytmp4.onLoadViewInterface() {
+
+       ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 103);
+
+
+       Ytmp4.realtimeDataViewVideo(this, "https://www.youtube.com/watch?v=VDtNamYUi-c", 4,new Ytmp4.onLoadViewInterface() {
             @Override
             public void onGetView(String v) {
                 Log.e("MAIN", v);
@@ -140,7 +151,7 @@ fragment.setDebg(true);
 //fragment.isAdminSender = true;
 getSupportFragmentManager().beginTransaction().replace(R.id.layad, fragment).commitAllowingStateLoss();
 
-*/
+
 //fragment.sendDonateMessage(90);
         //   videoView.start();
 

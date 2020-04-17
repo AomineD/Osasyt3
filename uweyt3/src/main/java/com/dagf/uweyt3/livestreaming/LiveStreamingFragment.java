@@ -216,6 +216,14 @@ public class LiveStreamingFragment extends Fragment {
                         getActivity().finish();
                 }
             });
+            donate_watch = v.findViewById(R.id.donate_watch);
+
+            donate_watch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    changeAdapter();
+                }
+            });
         }
 
         v.findViewById(R.id.full_screen).setOnClickListener(new View.OnClickListener() {
@@ -321,14 +329,7 @@ v.findViewById(R.id.loading_relay).setVisibility(View.GONE);
             }
         });
 
-       donate_watch = v.findViewById(R.id.donate_watch);
 
-               donate_watch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeAdapter();
-            }
-        });
 
         if(isDebug)
             Log.e("MAIN", "onCreateView: BASE DE DATOS => "+databaseReference.getRef().toString());
