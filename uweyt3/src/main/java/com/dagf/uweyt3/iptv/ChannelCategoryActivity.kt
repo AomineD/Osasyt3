@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,8 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader
 import com.dagf.uweyt3.R
 import com.dagf.uweyt3.utils.UtilsIPTV
-import com.facebook.ads.AdSize
-import com.facebook.ads.AdView
+import com.facebook.ads.*
 
 public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileDownloadListener {
 
@@ -68,6 +68,26 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
         }
 
         val adView = AdView(this,  ad_facebook_banner,  AdSize.BANNER_HEIGHT_50)
+
+        adView.setAdListener(object: AdListener{
+            override fun onAdClicked(p0: Ad?) {
+
+            }
+
+            override fun onError(p0: Ad?, p1: AdError?) {
+        Log.e("MAIN", "error banner "+p1!!.errorMessage + " "+ ad_facebook_banner)
+            }
+
+            override fun onAdLoaded(p0: Ad?) {
+Log.e("MAIN", "Loaded banner audience")
+             }
+
+            override fun onLoggingImpression(p0: Ad?) {
+
+            }
+
+        })
+
      adView.loadAd()
 
         adContainer!!.addView(adView)
