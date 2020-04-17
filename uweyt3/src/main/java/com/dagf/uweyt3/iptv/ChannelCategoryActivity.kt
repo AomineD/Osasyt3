@@ -49,7 +49,7 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
         adContainer = findViewById(R.id.adContainer)
         rvChannelCategory = findViewById(R.id.rvChannelCategory)
         textNoChannelFound = findViewById(R.id.textNoChannelFound)
-
+        ad_facebook_banner = UtilsIPTV.banner_audience
         progressBar?.visibility = View.VISIBLE
         rvChannelCategory?.visibility = View.GONE
         channelBy = intent.getStringExtra("CHANNEL_BY")
