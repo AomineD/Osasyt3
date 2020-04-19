@@ -68,11 +68,13 @@ class ExoPlayerActivity : AppCompatActivity() {
 
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd!!.adUnitId = ad_inters_unit
-
+        var mAdView = AdView(this)
         mInterstitialAd!!.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
                 startPlayer()
+                val adRequest = AdRequest.Builder().build()
+                mAdView.loadAd(adRequest)
             }
 
             override fun onAdLoaded() {
@@ -87,15 +89,15 @@ class ExoPlayerActivity : AppCompatActivity() {
 
         btnBack = findViewById(R.id.btnBack)
         MobileAds.initialize(this) {}
-      var mAdView = AdView(this)
+
         ad_view_container = findViewById<LinearLayout>(R.id.adView)
         mAdView.adUnitId = ad_unit
         mAdView.adSize = adSize
 
-        val adRequest = AdRequest.Builder().build()
 
 
-        mAdView.loadAd(adRequest)
+
+
 
 
                 ad_view_container!!.addView(mAdView)
