@@ -18,6 +18,7 @@ public class UtilsIPTV {
     public static String ad_banner;
 
     public static String banner_audience = "";
+    public static String ad_inters_admob = "ca-app-pub-3940256099942544/1033173712";
 
 
 
