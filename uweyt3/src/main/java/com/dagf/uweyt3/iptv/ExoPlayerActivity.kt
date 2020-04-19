@@ -77,6 +77,12 @@ class ExoPlayerActivity : AppCompatActivity() {
                 mAdView.loadAd(adRequest)
             }
 
+            override fun onAdFailedToLoad(p0: Int) {
+                super.onAdFailedToLoad(p0)
+                val adRequest = AdRequest.Builder().build()
+                mAdView.loadAd(adRequest)
+            }
+
             override fun onAdLoaded() {
                 super.onAdLoaded()
                 pausePlayer()
