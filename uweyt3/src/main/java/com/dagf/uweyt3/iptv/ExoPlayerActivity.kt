@@ -65,7 +65,7 @@ class ExoPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exo_player)
 
-        ad_unit = intent!!.getStringExtra(key_data)
+     //   ad_unit = intent!!.getStringExtra(key_data)
 
         mInterstitialAd = InterstitialAd(this)
         ad_inters_unit = UtilsIPTV.ad_inters_admob
@@ -99,6 +99,7 @@ class ExoPlayerActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         ad_view_container = findViewById<LinearLayout>(R.id.adView)
+
         mAdView.adUnitId = ad_unit
         mAdView.adSize = adSize
 
