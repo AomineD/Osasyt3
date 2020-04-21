@@ -49,6 +49,7 @@ class ExoPlayerActivity : AppCompatActivity() {
 
             val density = outMetrics.density
 
+            Log.e("MAIN", "uh "+(ad_view_container!=null))
             var adWidthPixels = ad_view_container!!.width.toFloat()
             if (adWidthPixels == 0f) {
                 adWidthPixels = outMetrics.widthPixels.toFloat()
