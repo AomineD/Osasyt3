@@ -129,11 +129,11 @@ class ExoPlayerActivity : AppCompatActivity() {
         }
 
         btnExternalPlayer.setOnClickListener {
-            val url = intent.getParcelableExtra<M3UItem>("CHANNEL_DETAILS")?.tvURL
+         /*   val url = intent.getParcelableExtra<M3UItem>("CHANNEL_DETAILS")?.tvURL
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.setDataAndType(Uri.parse(url), "video/*")
+            intent.setDataAndType(Uri.parse(url), "video")
             startActivity(intent)
-            finish()
+            finish()*/
         }
     }
 

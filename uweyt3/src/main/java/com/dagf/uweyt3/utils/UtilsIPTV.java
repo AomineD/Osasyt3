@@ -61,4 +61,7 @@ Intent intent = new Intent(context, ChannelCategoryActivity.class);
         return dataSourceFactory;
     }
 
+
+
+    public static void goUfo(){}
 }
