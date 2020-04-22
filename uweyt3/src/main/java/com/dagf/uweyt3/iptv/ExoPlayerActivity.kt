@@ -179,7 +179,7 @@ class ExoPlayerActivity : AppCompatActivity() {
                 override fun onPlayerError(error: ExoPlaybackException) {
                     progressBar.visibility = View.GONE
                     errorMessage.visibility = View.VISIBLE
-                    btnExternalPlayer.visibility = View.VISIBLE
+                    //btnExternalPlayer.visibility = View.VISIBLE
                     Toast.makeText(
                         this@ExoPlayerActivity,
                         "Currently this channel is not working",
