@@ -19,7 +19,7 @@ public class UtilsIPTV {
 
     public static String banner_audience = "";
     public static String ad_inters_admob = "ca-app-pub-3940256099942544/1033173712";
-
+public static onClickChannel clickChannel;
 
 
     public static void startViewIPTV(Context context, String forwhat, String ad_banners, onClickChannel onClickChannel){
@@ -28,7 +28,7 @@ Intent intent = new Intent(context, ChannelCategoryActivity.class);
 
         ad_banner = ad_banners;
         context.startActivity(intent);
-        ChannelAdapter.Companion.setListenerclik(onClickChannel);
+        clickChannel = onClickChannel;
     }
 
     public interface onClickChannel{

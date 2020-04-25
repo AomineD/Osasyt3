@@ -31,6 +31,7 @@ class ChannelAdapter(context: Context, channelsList: List<M3UItem>, defaultIconD
     }
 
     init {
+        listenerclik = UtilsIPTV.clickChannel;
         mContext = context
         mOpenPlayer = openPlayer
         mDefaultIconDisplay = defaultIconDisplay
@@ -71,7 +72,7 @@ class ChannelAdapter(context: Context, channelsList: List<M3UItem>, defaultIconD
                 val intent = Bundle()
                 intent.putParcelable("CHANNEL_DETAILS", channel)
                 intent.putString(ExoPlayerActivity.key_data, UtilsIPTV.ad_banner)
-
+if(listenerclik != null)
                 listenerclik!!.onCliked(intent)
             }
         }
