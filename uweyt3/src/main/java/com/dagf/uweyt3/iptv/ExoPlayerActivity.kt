@@ -69,6 +69,7 @@ class ExoPlayerActivity : AppCompatActivity() {
 
         mInterstitialAd = InterstitialAd(this)
         ad_inters_unit = UtilsIPTV.ad_inters_admob
+        ad_unit = UtilsIPTV.ad_banner
         mInterstitialAd!!.adUnitId = ad_inters_unit
         var mAdView = AdView(this)
         mInterstitialAd!!.adListener = object : AdListener() {
