@@ -1,6 +1,7 @@
 package com.dagf.osasyt3;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -46,28 +47,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-  /*      AdSettings.setDebugBuild(true);
+        AdSettings.setDebugBuild(true);
 
         UtilsIPTV.banner_audience = "359004844525143_855073358251620";
     UtilsIPTV.startViewIPTV(this, "By Country", "ca-app-pub-3940256099942544/6300978111", new UtilsIPTV.onClickChannel() {
         @Override
         public void onCliked(Bundle bundle) {
-
-            Intent i = new Intent(MainActivity.this, ExoPlayerActivity.class);
-
-            i.putExtras(bundle);
-
-            Toast.makeText(MainActivity.this, "Clicked papi", Toast.LENGTH_SHORT).show();
-            startActivity(i);
+            bundle.putBoolean("is_iptv", true);
+            bundle.putBoolean("is_new", true);
+           OpenPlayerAgain(bundle);
         }
 
         @Override
         public void clickCountry() {
             Toast.makeText(MainActivity.this, "clicked country", Toast.LENGTH_SHORT).show();
         }
-    });*/
+    });
 
-
+/*
 
        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 103);
 
@@ -188,4 +185,30 @@ getSupportFragmentManager().beginTransaction().replace(R.id.layad, fragment).com
             e.printStackTrace();
         }
     }
+
+    public void OpenPlayerAgain(Bundle b) {
+
+            String packageName = "net.media.invegas";//Tools.players.get(0).packageName;
+            try {
+                Intent mx = new Intent(Intent.ACTION_VIEW);
+                mx.setPackage("net.media.invegas");//Tools.players.get(0).packageName);
+                mx.setDataAndType(Uri.parse("https://srv-file6.gofile.io/download/DInk05/View_From_A_Blue_Moon_Trailer-720p.mp4"), "video/*");
+                mx.putExtras(b);
+
+
+                // mx.putExtra("from_start", false);
+
+                startActivity(mx);
+            }  catch (Exception e) {
+                Log.e("MAIN", "OpenWithMX: " + e.getMessage());
+
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+                } catch (ActivityNotFoundException ee) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+                }
+
+            }
+        }
+
 }

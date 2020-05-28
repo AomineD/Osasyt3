@@ -29,11 +29,14 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
     private var textNoChannelFound: TextView? = null
     private var adContainer: LinearLayout? = null
     private var searchView: SearchView? = null
-    private var channels: M3UItem? = null
+
     private var gotIPTVFile: Boolean = false;
     private var noInternetDialog: NoInternetDialog? = null
     private lateinit var fileDownloader: FileDownloader
+    companion object{
 
+        private var channels: M3UItem? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -191,6 +194,7 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
     override fun onResume() {
         super.onResume()
         internetDialog()
+        Log.e("MAIN", "cga "+ channels!!.tvURL);
         //adsManager?.resumeAds()
     }
 

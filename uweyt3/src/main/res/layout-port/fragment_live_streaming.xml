@@ -11,79 +11,79 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="240dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp">
 
 
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:layout_width="match_parent"
-        android:id="@+id/player_view"
-        android:layout_height="match_parent">
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:layout_width="match_parent"
+                android:id="@+id/player_view"
+                android:layout_height="match_parent">
 
-    </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+            </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@drawable/ic_backi"
-            android:layout_marginEnd="10dp"
-            android:id="@+id/backbuttn"
-            />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_backi"
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/backbuttn"
+                    />
 
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/eye_ic"
-        />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/eye_ic"
+                    />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:textSize="14sp"
-        android:id="@+id/views_player"
-        android:text="0"
-        android:layout_marginStart="5dp"
-        android:textColor="@color/white"
-        />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:id="@+id/views_player"
+                    android:text="0"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
 
-    <ImageView
-        android:id="@+id/full_screen"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        app:srcCompat="@drawable/ic_full" />
+            <ImageView
+                android:id="@+id/full_screen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                app:srcCompat="@drawable/ic_full" />
 
-</RelativeLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/namai"
@@ -169,7 +169,7 @@
             android:layout_weight="1"
             android:layout_marginBottom="@dimen/margin_rec_chat"
             android:id="@+id/rec_chat"
-           />
+            />
 
 
 
@@ -271,22 +271,22 @@
 
     </RelativeLayout>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:id="@+id/loading_relay"
-    android:background="@color/black_until"
-    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/loading_relay"
+        android:background="@color/black_until"
+        android:layout_height="match_parent">
 
-<com.airbnb.lottie.LottieAnimationView
-    android:layout_width="250dp"
-    android:layout_height="250dp"
-    app:lottie_fileName="loading_live.json"
-    android:layout_centerInParent="true"
-    app:lottie_autoPlay="true"
-    app:lottie_loop="true"
-    />
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:lottie_fileName="loading_live.json"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            />
 
-</RelativeLayout>
+    </RelativeLayout>
 
 
 

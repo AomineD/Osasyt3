@@ -17,9 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.dagf.uweyt3.utils.VideoMeta;
-import com.dagf.uweyt3.utils.YouTubeExtractor;
-import com.dagf.uweyt3.utils.YtFile;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
@@ -33,6 +30,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import at.huber.youtubeExtractor.VideoMeta;
+import at.huber.youtubeExtractor.YouTubeExtractor;
+import at.huber.youtubeExtractor.YtFile;
 
 
 public class Ytmp4 {
@@ -99,7 +100,7 @@ catch (Exception e){
             }
 
             @Override
-            protected void onExtractionComplete(Map<Integer, YtFile> ytFiles, VideoMeta videoMeta) {
+            public void onExtractionComplete(SparseArray<YtFile> ytFiles, VideoMeta vMeta) {
                 if (ytFiles != null) {
                     int itag = 18;
                     switch (quali) {

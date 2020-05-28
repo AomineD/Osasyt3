@@ -37,6 +37,7 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
     private lateinit var fileDownloader: FileDownloader
     companion object{
         public var ad_facebook_banner = UtilsIPTV.banner_audience
+        public var channelBystat = ""
     }
 
 
@@ -53,7 +54,9 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
         ad_facebook_banner = UtilsIPTV.banner_audience
         progressBar?.visibility = View.VISIBLE
         rvChannelCategory?.visibility = View.GONE
+        if(intent.getStringExtra("CHANNEL_BY") != null)
         channelBy = intent.getStringExtra("CHANNEL_BY")
+
         supportActionBar?.title = "Channel $channelBy"
         supportActionBar?.setBackgroundDrawable(ColorDrawable(getResources()
                 .getColor(R.color.colorPrimary)));
