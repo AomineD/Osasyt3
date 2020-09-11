@@ -178,7 +178,7 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
     override fun onResume() {
         super.onResume()
         internetDialog()
-        Log.e("MAIN", "cga "+ channels!!.tvURL);
+    //    Log.e("MAIN", "cga "+ channels!!.tvURL);
         //adsManager?.resumeAds()
     }
 
