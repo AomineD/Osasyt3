@@ -64,24 +64,8 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
         val adView = AdView(this,  ChannelCategoryActivity.ad_facebook_banner,  AdSize.BANNER_HEIGHT_50)
      //   Log.e("MAIN", "Es "+ChannelCategoryActivity.ad_facebook_banner + " Ta cargando ya")
 
-        adView.setAdListener(object : AdListener{
-            override fun onAdClicked(p0: Ad?) {
 
-            }
 
-            override fun onError(p0: Ad?, p1: AdError?) {
-       //         Log.e("MAIN", "error on "+p1!!.errorMessage)
-            }
-
-            override fun onAdLoaded(p0: Ad?) {
-       //         Log.e("MAIN", "Si cargo we en channel activity")
-            }
-
-            override fun onLoggingImpression(p0: Ad?) {
-
-            }
-
-        })
 
         adView.loadAd()
 
