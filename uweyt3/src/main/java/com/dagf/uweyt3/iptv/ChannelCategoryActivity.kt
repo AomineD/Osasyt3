@@ -63,7 +63,7 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
 
         val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         rvChannelCategory?.addItemDecoration(dividerItemDecoration)
-        fileDownloader = FileDownloader(this)
+        fileDownloader = FileDownloader(this, false)
 
         when(channelBy) {
             "By Country" -> fileDownloader.getIPTVFile(ApiClient.IPTV_FILE_URL, "index.country.m3u")

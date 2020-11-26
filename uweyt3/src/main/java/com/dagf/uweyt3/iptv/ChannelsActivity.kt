@@ -56,7 +56,7 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
 
         val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         rvChannelCategory?.addItemDecoration(dividerItemDecoration)
-        fileDownloader = FileDownloader(this)
+        fileDownloader = FileDownloader(this, false)
         fileDownloader.getIPTVFile(ApiClient.IPTV_URL, channels?.tvURL ?: "")
 
      //   AdSettings.setDebugBuild(true)

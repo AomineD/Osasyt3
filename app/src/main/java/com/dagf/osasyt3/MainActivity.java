@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 103);
 
 
-       Ytmp4.realtimeDataViewVideo(this, "https://www.youtube.com/watch?v=VDtNamYUi-c", 4,new Ytmp4.onLoadViewInterface() {
+       Ytmp4.realtimeDataViewVideo(this, "https://www.youtube.com/watch?v=HXQSTcK8jkk", 4,new Ytmp4.onLoadViewInterface() {
             @Override
             public void onGetView(String v) {
                 Log.e("MAIN", v);
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         fragment.setName("Diego");
 
         fragment.setNameCh("Diego's Channel");
-fragment.setUrlTo("https://www.youtube.com/watch?v=8XL8Qk4qzyA");
+fragment.setUrlTo("https://www.youtube.com/watch?v=HXQSTcK8jkk");
 fragment.setIdentifier("Diego/LAN");
 fragment.setDiasMaximos(1);
 fragment.setUrrPhoto("https://www.salsalol.com/images/champions/Illaoi.png?v=32?1569462185");
