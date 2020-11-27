@@ -13,18 +13,18 @@ import java.lang.Exception
 class FileDownloader(context: Context, test: Boolean) {
 
     private var mContext: Context
-    private var mListener: FileDownloadListener
+    private var mListener: FileDownloadListener? = null
     private lateinit var mListener2: FileDownloadListenerExt
     private var bo = false;
 
     init {
         mContext = context
-        mListener = context as FileDownloadListener
+
   bo = test;
         try{
             mListener2 = context as FileDownloadListenerExt
         }catch (e: Exception){
-
+            mListener = context as FileDownloadListener
         }
     }
 
@@ -46,7 +46,7 @@ class FileDownloader(context: Context, test: Boolean) {
                     if(mListener2 != null){
                         mListener2.onFileDownloaded(playlist)
                     }else{
-                        mListener.onFileDownloaded(playlist)
+                        mListener!!.onFileDownloaded(playlist)
                     }
                 }
             }
