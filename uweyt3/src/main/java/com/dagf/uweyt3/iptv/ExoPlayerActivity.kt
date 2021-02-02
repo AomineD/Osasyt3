@@ -73,6 +73,9 @@ class ExoPlayerActivity : AppCompatActivity() {
         ad_inters_unit = UtilsIPTV.ad_inters_admob
         ad_unit = UtilsIPTV.ad_banner
         mInterstitialAd!!.adUnitId = ad_inters_unit
+
+        ad_view_container = findViewById(R.id.adView)
+
         btnBack = findViewById(R.id.btnBack)
         if(UtilsIPTV.typeAd == TypeAd.ADMOB) {
 
