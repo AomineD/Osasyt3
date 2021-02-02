@@ -1,16 +1,17 @@
 package com.dagf.uweyt3.iptv
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.agrawalsuneet.dotsloader.loaders.TashieLoader
 import com.dagf.uweyt3.R
 import com.dagf.uweyt3.utils.UtilsIPTV
+import com.facebook.ads.Ad
+import com.facebook.ads.AdError
+import com.facebook.ads.InterstitialAdListener
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
@@ -34,6 +35,7 @@ class ExoPlayerActivity : AppCompatActivity() {
     private lateinit var btnClose: ImageView
     private lateinit var btnExternalPlayer: ImageView
     private var mInterstitialAd: InterstitialAd?=null
+    private var mInterstitialAdFacebook: com.facebook.ads.InterstitialAd?=null
 
     companion object {
         public var ad_unit = "ca-app-pub-3940256099942544/6300978111"
@@ -49,7 +51,7 @@ class ExoPlayerActivity : AppCompatActivity() {
 
             val density = outMetrics.density
 
-            Log.e("MAIN", "uh "+(ad_view_container!=null))
+       //     Log.e("MAIN", "uh "+(ad_view_container!=null))
             var adWidthPixels = ad_view_container!!.width.toFloat()
             if (adWidthPixels == 0f) {
                 adWidthPixels = outMetrics.widthPixels.toFloat()
@@ -71,46 +73,89 @@ class ExoPlayerActivity : AppCompatActivity() {
         ad_inters_unit = UtilsIPTV.ad_inters_admob
         ad_unit = UtilsIPTV.ad_banner
         mInterstitialAd!!.adUnitId = ad_inters_unit
-        var mAdView = AdView(this)
-        mInterstitialAd!!.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                super.onAdClosed()
-                startPlayer()
-                val adRequest = AdRequest.Builder().build()
-                mAdView.loadAd(adRequest)
+        btnBack = findViewById(R.id.btnBack)
+        if(UtilsIPTV.typeAd == TypeAd.ADMOB) {
+
+            MobileAds.initialize(this) {}
+            var mAdView = AdView(this)
+            mAdView.adSize = AdSize.BANNER
+            mAdView.adUnitId = UtilsIPTV.ad_banner;
+            val adRequest = AdRequest.Builder().build()
+            mAdView.loadAd(adRequest)
+            mInterstitialAd!!.adListener = object : AdListener() {
+                override fun onAdClosed() {
+                    super.onAdClosed()
+                    startPlayer()
+                    val adRequest = AdRequest.Builder().build()
+                    mAdView.loadAd(adRequest)
+                }
+
+                override fun onAdFailedToLoad(p0: Int) {
+                    super.onAdFailedToLoad(p0)
+                    val adRequest = AdRequest.Builder().build()
+                    mAdView.loadAd(adRequest)
+                }
+
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    pausePlayer()
+                    mInterstitialAd!!.show()
+                }
             }
 
-            override fun onAdFailedToLoad(p0: Int) {
-                super.onAdFailedToLoad(p0)
-                val adRequest = AdRequest.Builder().build()
-                mAdView.loadAd(adRequest)
-            }
+            mInterstitialAd!!.loadAd(AdRequest.Builder().build())
 
-            override fun onAdLoaded() {
-                super.onAdLoaded()
-                pausePlayer()
-                mInterstitialAd!!.show()
-            }
+            ad_view_container!!.addView(mAdView)
+
+        }else {
+
+
+            val mAdView = com.facebook.ads.AdView(this, UtilsIPTV.ad_banner, com.facebook.ads.AdSize.BANNER_HEIGHT_50)
+            //   Log.e("MAIN", "Es "+ChannelCategoryActivity.ad_facebook_banner + " Ta cargando ya")
+
+            mInterstitialAdFacebook = com.facebook.ads.InterstitialAd(this, UtilsIPTV.ad_inters_admob)
+
+            mInterstitialAdFacebook!!.loadAd(mInterstitialAdFacebook!!.buildLoadAdConfig().withAdListener(object : InterstitialAdListener{
+                override fun onError(p0: Ad?, p1: AdError?) {
+                    ad_view_container!!.removeAllViews()
+                    val mAdView = com.facebook.ads.AdView(this@ExoPlayerActivity, UtilsIPTV.ad_banner, com.facebook.ads.AdSize.BANNER_HEIGHT_50)
+                    mAdView.loadAd()
+                    ad_view_container!!.addView(mAdView)
+                }
+
+                override fun onAdLoaded(p0: Ad?) {
+                    pausePlayer()
+                    mInterstitialAdFacebook!!.show()
+                }
+
+                override fun onAdClicked(p0: Ad?) {
+
+                }
+
+                override fun onLoggingImpression(p0: Ad?) {
+
+                }
+
+                override fun onInterstitialDisplayed(p0: Ad?) {
+
+                }
+
+                override fun onInterstitialDismissed(p0: Ad?) {
+                    startPlayer()
+                    ad_view_container!!.removeAllViews()
+                    val mAdView = com.facebook.ads.AdView(this@ExoPlayerActivity, UtilsIPTV.ad_banner, com.facebook.ads.AdSize.BANNER_HEIGHT_50)
+                    mAdView.loadAd()
+                    ad_view_container!!.addView(mAdView)
+                }
+
+            }).build())
+
+            mAdView.loadAd()
+            ad_view_container!!.addView(mAdView)
         }
 
-        mInterstitialAd!!.loadAd(AdRequest.Builder().build())
 
 
-        btnBack = findViewById(R.id.btnBack)
-        MobileAds.initialize(this) {}
-
-        ad_view_container = findViewById<LinearLayout>(R.id.adView)
-
-        mAdView.adUnitId = ad_unit
-        mAdView.adSize = adSize
-
-
-
-
-
-
-
-                ad_view_container!!.addView(mAdView)
 
         btnClose = findViewById(R.id.btnClose)
         channelName = findViewById(R.id.channelName)
@@ -151,9 +196,9 @@ class ExoPlayerActivity : AppCompatActivity() {
 
             // 2. Create the player
             player = ExoPlayerFactory.newSimpleInstance(this,
-                DefaultRenderersFactory(this),
-                trackSelector,
-                loadControl
+                    DefaultRenderersFactory(this),
+                    trackSelector,
+                    loadControl
             )
             playerView.player = player
 
@@ -162,16 +207,14 @@ class ExoPlayerActivity : AppCompatActivity() {
             }
             player?.addListener(object : Player.EventListener {
                 override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
-                    if(playbackState == Player.STATE_IDLE || playbackState == Player.STATE_ENDED || !playWhenReady) {
+                    if (playbackState == Player.STATE_IDLE || playbackState == Player.STATE_ENDED || !playWhenReady) {
                         playerView.keepScreenOn = false
-                    }
-                    else {
+                    } else {
                         // This prevents the screen from getting dim/lock
                         playerView.keepScreenOn = true
-                        if(playbackState == Player.STATE_BUFFERING) {
+                        if (playbackState == Player.STATE_BUFFERING) {
                             progressBar.visibility = View.VISIBLE
-                        }
-                        else if(playbackState == Player.STATE_READY) {
+                        } else if (playbackState == Player.STATE_READY) {
                             progressBar.visibility = View.GONE
                         }
                     }
@@ -182,11 +225,11 @@ class ExoPlayerActivity : AppCompatActivity() {
                     errorMessage.visibility = View.VISIBLE
                     //btnExternalPlayer.visibility = View.VISIBLE
                     Toast.makeText(
-                        this@ExoPlayerActivity,
-                        "Currently this channel is not working",
-                        Toast.LENGTH_LONG
+                            this@ExoPlayerActivity,
+                            "Currently this channel is not working",
+                            Toast.LENGTH_LONG
                     ).show()
-                //    Log.e("MAIN", error.message + " "+error.cause.toString())
+                    //    Log.e("MAIN", error.message + " "+error.cause.toString())
                 }
             })
 
@@ -201,7 +244,7 @@ class ExoPlayerActivity : AppCompatActivity() {
         // Produces DataSource instances through which media data is loaded.
         val dataSourceFactory = DefaultDataSourceFactory(this, null, UtilsIPTV.createDataSourceFactory(this, bandwidthMeter));
         // This is the MediaSource representing the media to be played.
-        Log.e("MAIN", "url $uri")
+     //   Log.e("MAIN", "url $uri")
         val mediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(uri);
         // Prepare the player with the source.
         player?.prepare(mediaSource)

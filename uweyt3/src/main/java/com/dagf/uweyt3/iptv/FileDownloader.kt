@@ -42,12 +42,11 @@ class FileDownloader(context: Context, test: Boolean) {
                     val playlist = parser.parseFile(`is`)
                     if(bo)
                     Log.e("MAIN", playlist.get(0).tvURL);
-
-                    if(mListener2 != null){
-                        mListener2.onFileDownloaded(playlist)
-                    }else{
-                        mListener!!.onFileDownloaded(playlist)
-                    }
+try {
+    mListener2.onFileDownloaded(playlist)
+}catch (e: Exception) {
+    mListener!!.onFileDownloaded(playlist)
+}
                 }
             }
 

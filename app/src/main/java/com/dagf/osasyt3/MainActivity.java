@@ -24,6 +24,7 @@ import com.dagf.uweyt3.DonationDialog;
 import com.dagf.uweyt3.Ytmp4;
 import com.dagf.uweyt3.iptv.ChannelCategoryActivity;
 import com.dagf.uweyt3.iptv.ExoPlayerActivity;
+import com.dagf.uweyt3.iptv.TypeAd;
 import com.dagf.uweyt3.livestreaming.LiveStreamingFragment;
 import com.dagf.uweyt3.utils.UtilsIPTV;
 import com.facebook.ads.AdSettings;
@@ -49,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         AdSettings.setDebugBuild(true);
 
-        UtilsIPTV.banner_audience = "359004844525143_855073358251620";
-    UtilsIPTV.startViewIPTV(this, "By Country", "ca-app-pub-3940256099942544/6300978111", new UtilsIPTV.onClickChannel() {
+    UtilsIPTV.startViewIPTV(this, TypeAd.AUDIENCEFB,"By Category", "359004844525143_855073358251620", new UtilsIPTV.onClickChannel() {
         @Override
         public void onCliked(Bundle bundle) {
             bundle.putBoolean("is_iptv", true);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.dagf.uweyt3.iptv.ChannelAdapter;
 import com.dagf.uweyt3.iptv.ChannelCategoryActivity;
+import com.dagf.uweyt3.iptv.TypeAd;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
@@ -16,16 +17,15 @@ import com.google.android.exoplayer2.util.Util;
 
 public class UtilsIPTV {
     public static String ad_banner;
-
-    public static String banner_audience = "";
     public static String ad_inters_admob = "ca-app-pub-3940256099942544/1033173712";
 public static onClickChannel clickChannel;
+public static TypeAd typeAd;
 
 
-    public static void startViewIPTV(Context context, String forwhat, String ad_banners, onClickChannel onClickChannel){
+    public static void startViewIPTV(Context context, TypeAd typeAd, String forwhat, String ad_banners, onClickChannel onClickChannel){
 Intent intent = new Intent(context, ChannelCategoryActivity.class);
         intent.putExtra("CHANNEL_BY", forwhat);
-
+typeAd = typeAd;
         ad_banner = ad_banners;
         context.startActivity(intent);
         clickChannel = onClickChannel;

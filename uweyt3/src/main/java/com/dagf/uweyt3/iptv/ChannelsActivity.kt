@@ -19,6 +19,7 @@ import com.agrawalsuneet.dotsloader.loaders.TashieLoader
 import com.dagf.uweyt3.R
 import com.dagf.uweyt3.utils.UtilsIPTV
 import com.facebook.ads.*
+import com.google.android.gms.ads.AdRequest
 
 class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListener {
 
@@ -61,17 +62,24 @@ class ChannelsActivity : AppCompatActivity(), FileDownloader.FileDownloadListene
 
      //   AdSettings.setDebugBuild(true)
 
-        val adView = AdView(this,  ChannelCategoryActivity.ad_facebook_banner,  AdSize.BANNER_HEIGHT_50)
-     //   Log.e("MAIN", "Es "+ChannelCategoryActivity.ad_facebook_banner + " Ta cargando ya")
+        if(UtilsIPTV.typeAd == TypeAd.ADMOB){
+            var mAdView = com.google.android.gms.ads.AdView(this)
+            mAdView.adSize = com.google.android.gms.ads.AdSize.BANNER
+            mAdView.adUnitId = UtilsIPTV.ad_banner;
+            val adRequest = AdRequest.Builder().build()
+            mAdView.loadAd(adRequest)
+            adContainer!!.addView(mAdView)
+        }else {
+            val adView = AdView(this, ChannelCategoryActivity.ad_facebook_banner, AdSize.BANNER_HEIGHT_50)
 
 
+            adView.loadAd()
+
+            adContainer!!.addView(adView)
+        }
 
 
-        adView.loadAd()
-
-
-
-        adContainer!!.addView(adView)
+  //      adContainer!!.addView(adView)
 
         /*adsManager = AdsManager(this)
         val prefsManager = PrefsManager(this)

@@ -21,6 +21,7 @@ import com.agrawalsuneet.dotsloader.loaders.TashieLoader
 import com.dagf.uweyt3.R
 import com.dagf.uweyt3.utils.UtilsIPTV
 import com.facebook.ads.*
+import com.google.android.gms.ads.AdRequest
 
 public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileDownloadListener {
 
@@ -36,7 +37,7 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
     private var noInternetDialog: NoInternetDialog? = null
     private lateinit var fileDownloader: FileDownloader
     companion object{
-        public var ad_facebook_banner = UtilsIPTV.banner_audience
+        public var ad_facebook_banner = UtilsIPTV.ad_banner
         public var channelBystat = ""
     }
 
@@ -51,7 +52,7 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
         adContainer = findViewById(R.id.adContainer)
         rvChannelCategory = findViewById(R.id.rvChannelCategory)
         textNoChannelFound = findViewById(R.id.textNoChannelFound)
-        ad_facebook_banner = UtilsIPTV.banner_audience
+        ad_facebook_banner = UtilsIPTV.ad_banner
         progressBar?.visibility = View.VISIBLE
         rvChannelCategory?.visibility = View.GONE
         if(intent.getStringExtra("CHANNEL_BY") != null)
@@ -71,14 +72,41 @@ public class ChannelCategoryActivity : AppCompatActivity(), FileDownloader.FileD
             "By Language" -> fileDownloader.getIPTVFile(ApiClient.IPTV_FILE_URL, "index.language.m3u")
         }
 
-        val adView = AdView(this,  ad_facebook_banner,  AdSize.BANNER_HEIGHT_50)
+        if(UtilsIPTV.typeAd == TypeAd.ADMOB){
+            var mAdView = com.google.android.gms.ads.AdView(this)
+            mAdView.adSize = com.google.android.gms.ads.AdSize.BANNER
+            mAdView.adUnitId = UtilsIPTV.ad_banner;
+            val adRequest = AdRequest.Builder().build()
+            mAdView.loadAd(adRequest)
+            adContainer!!.addView(mAdView)
+        }else {
+      //      AdSettings.setDebugBuild(true)
+        //    Log.e("MAIN", "onCreate: "+ ad_facebook_banner )
+            val adView = AdView(this, ad_facebook_banner, AdSize.BANNER_HEIGHT_50)
 
 
-     adView.loadAd()
+            adView.loadAd(adView.buildLoadAdConfig().withAdListener(object : AdListener {
+                override fun onError(p0: Ad?, p1: AdError?) {
+                    Log.e("MAIN", "onError: " + p1!!.errorMessage)
+                }
 
-        adContainer!!.addView(adView)
+                override fun onAdLoaded(p0: Ad?) {
+                    Log.e("MAIN", "onAdLoaded: " )
+                }
 
-        /*adsManager = AdsManager(this)
+                override fun onAdClicked(p0: Ad?) {
+
+                }
+
+                override fun onLoggingImpression(p0: Ad?) {
+
+                }
+
+            }).build())
+
+            adContainer!!.addView(adView)
+        }
+       /* adsManager = AdsManager(this)
         val prefsManager = PrefsManager(this)
         if (prefsManager.getPrefs("display_ads").equals("ADMOB", true)) {
             adsManager?.loadGoogleBannerAd(adContainer!!, prefsManager.getPrefs("admob_banner_id"))
